@@ -1,0 +1,5 @@
+{
+   "settings": "Settings",
+   "emailErrorMessage": "Invalid email address",
+   "limitErrorMessage" : "Invalid limit, must be a number greater than zero"
+}

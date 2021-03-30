@@ -1,0 +1,12 @@
+{
+  "id": "advertiseApp",
+  "version": "0.0.1",
+  "name": "Annonsplats",
+  "author": "Erik Nilsson <erik.nilsson@sitevision.se>",
+  "description": "Advertise application",
+  "helpUrl": "http://bitbucket.sitevision.net/users/erikn/repos/erik-webapps/browse/advertise-app",
+  "type": "WebApp",
+  "storage": {
+    "collectionDataStore": "advertises"
+  }  
+}

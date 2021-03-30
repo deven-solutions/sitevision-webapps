@@ -1,0 +1,5 @@
+{
+   "settings": "Inställningar",
+   "emailErrorMessage": "Ogiltig e-postadress",
+   "limitErrorMessage" : "Ogilitgt värde, måste vara ett heltal större än noll"
+}

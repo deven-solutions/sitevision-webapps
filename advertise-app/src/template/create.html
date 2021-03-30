@@ -1,0 +1,21 @@
+<form class="env-form" action="<%= getUrl('/create') %>" method="post">
+   <div class="env-form-element">
+      <div class="env-form-element__control">
+         <input autocomplete="off" type="text" class="env-form-input" placeholder="Title" name="title">
+      </div>
+   </div>
+   <div class="env-form-element">
+      <div class="env-form-element__control">
+         <input autocomplete="off" type="text" placeholder="Description" class="env-form-input" name="description">
+      </div>
+   </div>
+   <div class="env-form-element">
+      <div class="env-form-element__control">
+         <input autocomplete="off" type="number" placeholder="Price" class="env-form-input" name="price">
+      </div>
+   </div>
+   <div class="env-form-element">
+      <input class="env-button env-button--primary" type="submit" value="Create advertise" />
+   </div>
+</form>
+<a href="<%= getUrl('/') %>" >Visa annonser</a>

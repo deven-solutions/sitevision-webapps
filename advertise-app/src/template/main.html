@@ -1,0 +1,15 @@
+<h4>Senaste annonserna</h4>
+<table class="env-table">
+  <thead>
+     <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Edit</th> <!-- TODO Visa endast för användaren som skapat annonsen -->
+        <th>Delete</th> <!-- TODO Visa endast för användaren som skapat annonsen -->
+     </tr>
+  </thead>
+  <%= renderer.renderComponent('Advertises') %>
+</table>
+
+<a href="<%= getUrl('/create') %>">Skapa ny annons</a>
