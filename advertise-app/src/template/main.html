@@ -1,15 +1,15 @@
-<h4>Senaste annonserna</h4>
+<h4><%= i18n('latestAds') %></h4>
 <table class="env-table">
   <thead>
      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Edit</th> <!-- TODO Visa endast för användaren som skapat annonsen -->
-        <th>Delete</th> <!-- TODO Visa endast för användaren som skapat annonsen -->
+        <th><%= i18n('name') %></th>
+        <th><%= i18n('description') %></th>
+        <th><%= i18n('price') %></th>
+        <th><%= i18n('edit') %></th>
+        <th><%= i18n('delete') %></th>
      </tr>
   </thead>
   <%= renderer.renderComponent('Advertises') %>
 </table>
 
-<a href="<%= getUrl('/create') %>">Skapa ny annons</a>
+<a href="<%= getUrl('/create') %>"><%= i18n('create') %></a>

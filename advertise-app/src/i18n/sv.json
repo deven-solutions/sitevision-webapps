@@ -1,5 +1,15 @@
 {
    "settings": "Inställningar",
    "emailErrorMessage": "Ogiltig e-postadress",
-   "limitErrorMessage" : "Ogilitgt värde, måste vara ett heltal större än noll"
+   "limitErrorMessage" : "Ogilitgt värde, måste vara ett heltal större än noll",
+   "edit": "Redigera",
+   "showAds": "Visa annonser",
+   "back": "Tillbaka",
+   "save": "Spara",
+   "create": "Skapa ny annons",
+   "name": "Namn",
+   "description": "Beskrivning",
+   "price": "Pris",
+   "delete": "Ta bort",
+   "latestAds": "Senaste annonserna"
 }

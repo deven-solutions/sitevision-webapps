@@ -1,5 +1,15 @@
 {
    "settings": "Settings",
    "emailErrorMessage": "Invalid email address",
-   "limitErrorMessage" : "Invalid limit, must be a number greater than zero"
+   "limitErrorMessage" : "Invalid limit, must be a number greater than zero",
+   "edit": "Edit",
+   "showAds": "Visa annonser",
+   "back": "Back",
+   "save": "Save",
+   "create": "Create new ad",
+   "name": "Name",
+   "description": "Description",
+   "price": "Price",
+   "delete": "Remove",
+   "latestAds": "Latest ads"
 }

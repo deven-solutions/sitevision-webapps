@@ -10,6 +10,7 @@ define(function(require) {
       var result = advertises.find('*', 100);
       try {
         var data = result.toArray();
+        data.forEach(ad => ad.id = ad.dsid); // Always provide an "id" attribute for list items.
         return data;
       } catch (e) {
         logUtil.error(e);
