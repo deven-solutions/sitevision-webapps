@@ -15,5 +15,8 @@
    "userAds": "My ads",
    "administratorEmail": "Administrator e-mail",
    "adsLimit": "Limit of ads for each user",
-   "adsLimitExceeded": "Ads limit exceeded. Please remove an ad and try again."
+   "adsLimitExceeded": "Ads limit exceeded. Please remove an ad and try again.",
+   "email": "E-mail",
+   "phoneNumber": "Phone number",
+   "name": "Name"
 }

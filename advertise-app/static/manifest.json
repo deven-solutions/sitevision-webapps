@@ -7,6 +7,7 @@
   "helpUrl": "https://github.com/deven-solutions/sitevision-webapps/tree/main/advertise-app",
   "type": "WebApp",
   "storage": {
-    "collectionDataStore": "advertises"
+    "collectionDataStore": "advertises",
+    "keyValueDataStore": "contactinfo"
   }  
 }

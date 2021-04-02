@@ -15,6 +15,21 @@
      </div>
   </div>
   <div class="env-form-element">
+   <div class="env-form-element__control">
+      <input autocomplete="off" type="text" value="<%- advertise.contactInfo.name %>" placeholder="<%= i18n('name') %>" class="env-form-input" name="name">
+   </div>
+</div>
+<div class="env-form-element">
+   <div class="env-form-element__control">
+      <input autocomplete="off" type="number" value="<%- advertise.contactInfo.phoneNumber %>" placeholder="<%= i18n('phoneNumber') %>" class="env-form-input" name="phoneNumber">
+   </div>
+</div>
+<div class="env-form-element">
+   <div class="env-form-element__control">
+      <input autocomplete="off" type="email" value="<%- advertise.contactInfo.email %>" placeholder="<%= i18n('email') %>" class="env-form-input" name="email">
+   </div>
+</div>
+  <div class="env-form-element">
      <input class="env-button env-button--primary" type="submit" value="<%= i18n('save') %>" />
   </div>
 </form>

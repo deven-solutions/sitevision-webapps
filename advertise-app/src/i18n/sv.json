@@ -15,5 +15,8 @@
    "userAds": "Mina annonser",
    "administratorEmail": "E-postadress för annonsplatsansvarig",
    "adsLimit": "Max antal annonser per användare",
-   "adsLimitExceeded": "Max antal annonser överskridet. Ta bort en annons och försök igen."
+   "adsLimitExceeded": "Max antal annonser överskridet. Ta bort en annons och försök igen.",
+   "email": "E-postadress",
+   "phoneNumber": "Telefonnummer",
+   "name": "Namn"
 }

@@ -20,18 +20,30 @@
   });
 
   router.get('/create', (req, res) => {
-    res.render('/create', {});
+    const userMail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
+    const contactInfo = dataStoreProvider.getContactInfo(userMail);
+    res.render('/create', {
+      contactInfo: contactInfo || { email: userMail }
+    });
   });
 
   router.post('/create', (req, res) => {
+    const userMail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
+    const contactInfo = {
+      email: req.params.email,
+      name: req.params.name,
+      phoneNumber: req.params.phoneNumber
+    };
+    dataStoreProvider.setContactInfo(userMail, contactInfo);
     const adsLimit = appData.get('adsLimit');
     const userAdvertises = getUserAdvertises();
     if (userAdvertises.length < adsLimit) {
-      var advertise = {
+      const advertise = {
         title: req.params.title,
         description: req.params.description,
         price: req.params.price,
-        userMail: properties.get(portletContextUtil.getCurrentUser(), 'mail')
+        userMail: userMail,
+        contactInfo: contactInfo
       };
       dataStoreProvider.createAdvertise(advertise);
       renderUserAdvertises(res);
@@ -53,9 +65,16 @@
       const advertise = {
         title: req.params.title,
         description: req.params.description,
-        price: req.params.price
+        price: req.params.price,
+        contactInfo: {
+          email: req.params.email,
+          name: req.params.name,
+          phoneNumber: req.params.phoneNumber 
+        }
       };
       dataStoreProvider.editAdvertise(req.params.dsid, advertise);
+      const userMail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
+      dataStoreProvider.setContactInfo(userMail, advertise.contactInfo);
     }
     renderUserAdvertises(res);
   });

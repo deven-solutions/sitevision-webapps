@@ -3,10 +3,25 @@ define(function(require) {
 
   const storage = require('storage');
   const advertises = storage.getCollectionDataStore('advertises');
+  const contacts = storage.getKeyValueDataStore('contactinfo');
   const logUtil = require('LogUtil');
   const appData = require('appData');
 
   return {
+    getContactInfo(email) {
+      try {
+        return contacts.get(email);
+      } catch (e) {
+        logUtil.error(e);
+      }
+    },
+    setContactInfo(email, contactInfo) {
+      try {
+        contacts.put(email, contactInfo);
+      } catch (e) {
+        logUtil.error(e);
+      }
+    },
     getAdvertises: (filterByUserEmail) => {
       const adsLimit = Number(appData.get('adsLimit'));
       try {
