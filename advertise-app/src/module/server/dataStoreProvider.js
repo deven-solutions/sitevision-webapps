@@ -7,12 +7,17 @@ define(function(require) {
   const appData = require('appData');
 
   return {
-    getAdvertises: () => {
+    getAdvertises: (filterByUserEmail) => {
       const adsLimit = appData.get('adsLimit');
-      const result = advertises.find('*', Number(adsLimit));
+      let result;
+      if (filterByUserEmail) {
+        result = advertises.find('ds.analyzed.userMail:' + filterByUserEmail, 100);
+      } else {
+        result = advertises.find('*', Number(adsLimit));
+      }
+      
       try {
         const data = result.toArray();
-        data.forEach(ad => ad.id = ad.dsid); // Always provide an "id" attribute for list items.
         return data;
       } catch (e) {
         logUtil.error(e);

@@ -11,5 +11,6 @@
    "description": "Beskrivning",
    "price": "Pris",
    "delete": "Ta bort",
-   "latestAds": "Senaste annonserna"
+   "latestAds": "Senaste annonserna",
+   "userAds": "Mina annonser"
 }

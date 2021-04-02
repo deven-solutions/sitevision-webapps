@@ -5,6 +5,7 @@ define(function (require) {
   const template = require('/template/main');
   const createTemplate = require('/template/create');
   const editTemplate = require('/template/edit');
+  const userAdsTemplate = require('/template/userAds');
 
   return Component.extend({
 
@@ -13,12 +14,14 @@ define(function (require) {
         return createTemplate;
       } else if (this.state.route === '/edit') {
         return editTemplate;
+      } else if (this.state.route === '/userAds') {
+        return userAdsTemplate;
       }
       return template;
     },
 
     className: 'webapp-boilerplate',
 
-    filterState: ({route, email, adsLimit}) => ({route, email, adsLimit}),
+    filterState: ({route}) => ({route}),
   });
 });

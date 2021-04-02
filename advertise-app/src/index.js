@@ -14,6 +14,10 @@
     });
   });
 
+  router.get('/userAds', (req, res) => {
+    renderUserAdvertises(res);
+  });
+
   router.get('/create', (req, res) => {
     res.render('/create', {});
   });
@@ -26,9 +30,7 @@
       userMail: properties.get(portletContextUtil.getCurrentUser(), 'mail')
     };
     dataStoreProvider.createAdvertise(advertise);
-    res.render('/', {
-      advertises: dataStoreProvider.getAdvertises()
-    });
+    renderUserAdvertises(res);
   });
 
   router.get('/edit', (req, res) => {
@@ -48,9 +50,7 @@
       };
       dataStoreProvider.editAdvertise(req.params.dsid, advertise);
     }
-    res.render('/', {
-      advertises: dataStoreProvider.getAdvertises()
-    });
+    renderUserAdvertises(res);
   });
 
   router.post('/remove', (req, res) => {
@@ -58,15 +58,15 @@
     if (hasWriteAccess(dsid)) {
       dataStoreProvider.removeAdvertise(dsid);
     }
-    res.render('/', {
-      advertises: dataStoreProvider.getAdvertises()
-    });
+    renderUserAdvertises(res);
   });
 
-  router.get('/hasWriteAccess/:id', (req, res) => {
-    const access = hasWriteAccess(req.params.id);
-    res.json({ access: access });
-  });
+  function renderUserAdvertises(res) {
+    const currentUserEmail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
+    res.render('/userAds', {
+      advertises: dataStoreProvider.getAdvertises(currentUserEmail)
+    });
+  }
 
   function hasWriteAccess(adsId) {
     const advertise = dataStoreProvider.getAdvertise(adsId);

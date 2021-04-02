@@ -11,5 +11,6 @@
    "description": "Description",
    "price": "Price",
    "delete": "Remove",
-   "latestAds": "Latest ads"
+   "latestAds": "Latest ads",
+   "userAds": "My ads"
 }

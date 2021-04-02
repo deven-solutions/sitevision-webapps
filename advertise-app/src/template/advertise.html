@@ -7,13 +7,3 @@
 <td>
   <%- price %>
 </td>
-<td>
-  <a class="display-none" href="<%= getUrl('/edit', {id:dsid}) %>"><%= i18n('edit') %> </a>
-</td>
-<td>
-  <form class="env-form display-none" method="post" action="<%= getUrl('/remove', {dsid:dsid}) %>">
-     <div class="env-form-element">
-        <input class="env-button env-button--small env-button--danger" type="submit" value="Radera" />
-     </div>
-  </form>
-</td>
