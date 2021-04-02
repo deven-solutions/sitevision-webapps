@@ -1,21 +1,21 @@
 <form class="env-form" action="<%= getUrl('/create') %>" method="post">
    <div class="env-form-element">
       <div class="env-form-element__control">
-         <input autocomplete="off" type="text" class="env-form-input" placeholder="Title" name="title">
+         <input autocomplete="off" type="text" class="env-form-input" placeholder="<%= i18n('title') %>" name="title">
       </div>
    </div>
    <div class="env-form-element">
       <div class="env-form-element__control">
-         <input autocomplete="off" type="text" placeholder="Description" class="env-form-input" name="description">
+         <input autocomplete="off" type="text" placeholder="<%= i18n('description') %>" class="env-form-input" name="description">
       </div>
    </div>
    <div class="env-form-element">
       <div class="env-form-element__control">
-         <input autocomplete="off" type="number" placeholder="Price" class="env-form-input" name="price">
+         <input autocomplete="off" type="number" placeholder="<%= i18n('price') %>" class="env-form-input" name="price">
       </div>
    </div>
    <div class="env-form-element">
-      <input class="env-button env-button--primary" type="submit" value="Create advertise" />
+      <input class="env-button env-button--primary" type="submit" value="<%= i18n('create') %>" />
    </div>
 </form>
 <a href="<%= getUrl('/') %>"><%= i18n('showAds') %></a>

@@ -7,7 +7,7 @@
    "back": "Back",
    "save": "Save",
    "create": "Create new ad",
-   "name": "Name",
+   "title": "Title",
    "description": "Description",
    "price": "Price",
    "delete": "Remove",

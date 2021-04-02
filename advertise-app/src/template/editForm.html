@@ -1,17 +1,17 @@
 <form class="env-form" action="<%= getUrl('/edit', {dsid:advertise.dsid}) %>" method="post">
   <div class="env-form-element">
      <div class="env-form-element__control">
-        <input autocomplete="off" type="text" class="env-form-input" value="<%- advertise.title %>" name="title">
+        <input autocomplete="off" type="text" class="env-form-input" placeholder="<%= i18n('title') %>" value="<%- advertise.title %>" name="title">
      </div>
   </div>
   <div class="env-form-element">
      <div class="env-form-element__control">
-        <input autocomplete="off" type="text" value="<%- advertise.description %>" class="env-form-input" name="description">
+        <input autocomplete="off" type="text" placeholder="<%= i18n('description') %>" value="<%- advertise.description %>" class="env-form-input" name="description">
      </div>
   </div>
   <div class="env-form-element">
      <div class="env-form-element__control">
-        <input autocomplete="off" type="number" value="<%- advertise.price %>" class="env-form-input" name="price">
+        <input autocomplete="off" type="number" placeholder="<%= i18n('price') %>" value="<%- advertise.price %>" class="env-form-input" name="price">
      </div>
   </div>
   <div class="env-form-element">
