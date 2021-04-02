@@ -6,6 +6,7 @@ define(function (require) {
   const createTemplate = require('/template/create');
   const editTemplate = require('/template/edit');
   const userAdsTemplate = require('/template/userAds');
+  const adsLimitExceededTemplate = require('/template/adsLimitExceeded');
 
   return Component.extend({
 
@@ -16,6 +17,8 @@ define(function (require) {
         return editTemplate;
       } else if (this.state.route === '/userAds') {
         return userAdsTemplate;
+      } else if (this.state.route === '/adsLimitExceeded') {
+        return adsLimitExceededTemplate;
       }
       return template;
     },

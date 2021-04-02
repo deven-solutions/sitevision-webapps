@@ -5,6 +5,7 @@
   const dataStoreProvider = require('/module/server/dataStoreProvider');
   const portletContextUtil = require('PortletContextUtil');
   const properties = require('Properties');
+  const appData = require('appData');
   const logUtil = require('LogUtil');
   
 
@@ -23,14 +24,20 @@
   });
 
   router.post('/create', (req, res) => {
-    var advertise = {
-      title: req.params.title,
-      description: req.params.description,
-      price: req.params.price,
-      userMail: properties.get(portletContextUtil.getCurrentUser(), 'mail')
-    };
-    dataStoreProvider.createAdvertise(advertise);
-    renderUserAdvertises(res);
+    const adsLimit = appData.get('adsLimit');
+    const userAdvertises = getUserAdvertises();
+    if (userAdvertises.length < adsLimit) {
+      var advertise = {
+        title: req.params.title,
+        description: req.params.description,
+        price: req.params.price,
+        userMail: properties.get(portletContextUtil.getCurrentUser(), 'mail')
+      };
+      dataStoreProvider.createAdvertise(advertise);
+      renderUserAdvertises(res);
+    } else {
+      res.render('/adsLimitExceeded', {});
+    }
   });
 
   router.get('/edit', (req, res) => {
@@ -62,10 +69,14 @@
   });
 
   function renderUserAdvertises(res) {
-    const currentUserEmail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
     res.render('/userAds', {
-      advertises: dataStoreProvider.getAdvertises(currentUserEmail)
+      advertises: getUserAdvertises()
     });
+  }
+
+  function getUserAdvertises() {
+    const currentUserEmail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
+    return dataStoreProvider.getAdvertises(currentUserEmail);
   }
 
   function hasWriteAccess(adsId) {

@@ -8,15 +8,14 @@ define(function(require) {
 
   return {
     getAdvertises: (filterByUserEmail) => {
-      const adsLimit = appData.get('adsLimit');
-      let result;
-      if (filterByUserEmail) {
-        result = advertises.find('ds.analyzed.userMail:' + filterByUserEmail, 100);
-      } else {
-        result = advertises.find('*', Number(adsLimit));
-      }
-      
+      const adsLimit = Number(appData.get('adsLimit'));
       try {
+        let result;
+        if (filterByUserEmail) {
+          result = advertises.find('ds.analyzed.userMail:' + filterByUserEmail, adsLimit);
+        } else {
+          result = advertises.find('*');
+        }
         const data = result.toArray();
         return data;
       } catch (e) {

@@ -12,5 +12,8 @@
    "price": "Pris",
    "delete": "Ta bort",
    "latestAds": "Senaste annonserna",
-   "userAds": "Mina annonser"
+   "userAds": "Mina annonser",
+   "email": "E-postadress",
+   "adsLimit": "Max antal annonser per användare",
+   "adsLimitExceeded": "Max antal annonser överskridet. Ta bort en annons och försök igen."
 }

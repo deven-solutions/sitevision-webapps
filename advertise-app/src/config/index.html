@@ -4,11 +4,11 @@
   </div>
   <div class="panel-body">
     <div class="form-group">
-      <label>E-postadress</label>
+      <label><%= i18n('email') %></label>
       <input class="form-control" type="email" value="<%- currentUserEmail %>" name="email" required>
     </div>
     <div class="form-group">
-      <label>Max antal annonser</label>
+      <label><%= i18n('adsLimit') %></label>
       <input class="form-control" type="number" name="adsLimit" min="1" required>
     </div>
   </div>
