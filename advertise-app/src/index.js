@@ -6,10 +6,11 @@
   const portletContextUtil = require('PortletContextUtil');
   const properties = require('Properties');
   const logUtil = require('LogUtil');
+  
 
   router.get('/', (req, res) => {
     res.render('/', {
-      advertises: dataStoreProvider.getAllAdvertises()
+      advertises: dataStoreProvider.getAdvertises()
     });
   });
 
@@ -26,7 +27,7 @@
     };
     dataStoreProvider.createAdvertise(advertise);
     res.render('/', {
-      advertises: dataStoreProvider.getAllAdvertises()
+      advertises: dataStoreProvider.getAdvertises()
     });
   });
 
@@ -48,7 +49,7 @@
       dataStoreProvider.editAdvertise(req.params.dsid, advertise);
     }
     res.render('/', {
-      advertises: dataStoreProvider.getAllAdvertises()
+      advertises: dataStoreProvider.getAdvertises()
     });
   });
 
@@ -58,7 +59,7 @@
       dataStoreProvider.removeAdvertise(dsid);
     }
     res.render('/', {
-      advertises: dataStoreProvider.getAllAdvertises()
+      advertises: dataStoreProvider.getAdvertises()
     });
   });
 

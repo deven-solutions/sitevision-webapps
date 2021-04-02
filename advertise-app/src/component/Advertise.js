@@ -14,7 +14,6 @@ define(function(require) {
         url: router.getUrl('/hasWriteAccess/' + this.state.id),
         context: this
       }).done(function(response) {
-        console.log("Response access: " + response.access);
         if (response.access) {
           this.$('.display-none').removeClass('display-none');
         }
