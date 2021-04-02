@@ -1,7 +1,7 @@
 (function() {
   // overwrite default validate function
   window.validate = function() {
-     const emailInput = document.querySelector('input[name=email]');
+     const emailInput = document.querySelector('input[name=administratorEmail]');
      const adsLimitInput = document.querySelector('input[name=adsLimit]');
      const emailErrorText = this.$('#email-error-message').text();
      const adsLimitErrorText = this.$('#limit-error-message').text();

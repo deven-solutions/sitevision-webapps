@@ -13,7 +13,7 @@
    "delete": "Remove",
    "latestAds": "Latest ads",
    "userAds": "My ads",
-   "email": "E-mail",
+   "administratorEmail": "Administrator e-mail",
    "adsLimit": "Limit of ads for each user",
    "adsLimitExceeded": "Ads limit exceeded. Please remove an ad and try again."
 }
