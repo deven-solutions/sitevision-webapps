@@ -87,6 +87,11 @@
     renderUserItems(res);
   });
 
+  router.post('/report/:id', (req, res) => {
+    res.json({ id: req.params.id }); // TODO send mail
+    logUtil.info("Send mail " + req.params.id + " Text: " + req.params.text);
+  });
+
   function renderUserItems(res) {
     res.render('/userItems', {
       items: getUserItems()

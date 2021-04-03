@@ -32,6 +32,7 @@ define(function(require) {
           result = items.find('*');
         }
         const data = result.toArray();
+        data.forEach(item => item.id = item.dsid); // Always provide an "id" attribute for list items.
         return data;
       } catch (e) {
         logUtil.error(e);

@@ -16,3 +16,39 @@
 <td>
   <%- contactInfo.email %>
 </td>
+<td>
+  <button data-modal-dialog data-target="#report-modal-<%-dsid%>" type="button" class="env-button env-button--primary">
+    <%= i18n('report') %>
+  </button>
+</td>
+
+<div id="report-modal-<%-dsid%>"
+   class="env-modal-dialog"
+   role="dialog"
+   aria-labelledby="reportDialog"
+   aria-hidden="true"
+   tabindex="-1"
+>
+   <div class="env-modal-dialog__dialog">
+      <section class="env-modal-dialog__content">
+         <header class="env-modal-dialog__header">
+            <h5 class="env-text env-modal-dialog__header__title">
+              <%= i18n('reportItem') %>
+            </h5>
+         </header>
+         <div class="env-modal-dialog__body">
+            <p class="env-text">
+              <textarea id="report-modal-text-<%-dsid%>" name="reportText" placeholder="<%= i18n('reportItemText') %>" rows="4" cols="50"></textarea>
+            </p>
+         </div>
+         <footer class="env-modal-dialog__footer env-modal-dialog__footer--right">
+            <button id="report-modal-btn-<%-dsid%>" type="button" data-modal-dialog-dismiss class="env-button env-button--primary">
+              <%= i18n('send') %>
+            </button>
+            <button type="button" data-modal-dialog-dismiss class="env-button env-button--link">
+              <%= i18n('cancel') %>
+            </button>
+         </footer>
+      </section>
+   </div>
+</div>

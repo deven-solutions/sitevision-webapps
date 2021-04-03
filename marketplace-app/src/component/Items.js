@@ -11,6 +11,7 @@ define(function(require) {
 
      childComponentPath: 'Item',
 
-     filterState: ({items}) => ({items})
+     filterState: ({items}) => ({items}),
+     
   });
 });	

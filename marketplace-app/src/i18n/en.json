@@ -19,5 +19,10 @@
    "email": "E-mail",
    "phoneNumber": "Phone number",
    "name": "Name",
-   "remove":  "Remove"
+   "remove": "Remove",
+   "report": "Report",
+   "cancel": "Cancel",
+   "reportItem": "Report item",
+   "reportItemText": "Please describe the reason why you report this item",
+   "send": "Send"
 }

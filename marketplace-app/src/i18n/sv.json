@@ -19,5 +19,10 @@
    "email": "E-postadress",
    "phoneNumber": "Telefonnummer",
    "name": "Namn",
-   "remove": "Ta bort"
+   "remove": "Ta bort",
+   "report": "Anmäl",
+   "cancel": "Avbryt",
+   "reportItem": "Anmäl annons",
+   "reportItemText": "Ange varför du anmäler denna annons",
+   "send": "Skicka"
 }
