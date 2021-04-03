@@ -6,8 +6,7 @@
   const portletContextUtil = require('PortletContextUtil');
   const properties = require('Properties');
   const appData = require('appData');
-  const logUtil = require('LogUtil');
-  
+  const mailBuilder = require('MailBuilder');
 
   router.get('/', (req, res) => {
     res.render('/', {
@@ -87,9 +86,14 @@
     renderUserItems(res);
   });
 
-  router.post('/report/:id', (req, res) => {
-    res.json({ id: req.params.id }); // TODO send mail
-    logUtil.info("Send mail " + req.params.id + " Text: " + req.params.text);
+  router.post('/report', (req, res) => {
+    const administratorEmail = appData.get('administratorEmail');
+    var mail = mailBuilder.setSubject(req.params.subject)
+      .setTextMessage(req.params.text)
+      .addRecipient(administratorEmail)
+      .build();
+    const mailSent = mail.send();
+    res.json({ mailSent: mailSent });
   });
 
   function renderUserItems(res) {

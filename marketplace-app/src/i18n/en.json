@@ -24,5 +24,8 @@
    "cancel": "Cancel",
    "reportItem": "Report item",
    "reportItemText": "Please describe the reason why you report this item",
-   "send": "Send"
+   "send": "Send",
+   "mailNotSent": "Mail not sent",
+   "mailSubjectPart1": "Marketplace item \"",
+   "mailSubjectPart2": "\" has been reported"
 }

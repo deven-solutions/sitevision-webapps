@@ -24,5 +24,8 @@
    "cancel": "Avbryt",
    "reportItem": "Anmäl annons",
    "reportItemText": "Ange varför du anmäler denna annons",
-   "send": "Skicka"
+   "send": "Skicka",
+   "mailNotSent": "Mejlet skickades inte",
+   "mailSubjectPart1": "Annonsen \"",
+   "mailSubjectPart2": "\" har rapporterats"
 }

@@ -12,13 +12,20 @@ define(function(require) {
      onRendered: function() {
       const modalBtn = document.getElementById('report-modal-btn-' + this.state.id);
       modalBtn.addEventListener("click", () => {
-        const text = document.getElementById('report-modal-text-' + this.state.id);
+        const subjectPart1 = document.getElementById('i18-mailSubjectPart1').textContent;
+        const subjectPart2 = document.getElementById('i18-mailSubjectPart2').textContent;
+        const text = document.getElementById('report-modal-text-' + this.state.id).value;
         requester.doPost({
-          url: router.getUrl('/report/' + this.state.id),
+          url: router.getUrl('/report'),
           data: {
-            text: text.value
+            subject: subjectPart1 + this.state.title + subjectPart2,
+            text: text
           }
-        });
+        }).done(res => {
+          if (!res.mailSent) {
+            alert(document.getElementById('i18-mailNotSent').textContent);
+          }
+       });
       });
      },
      filterState: function(state, options) {

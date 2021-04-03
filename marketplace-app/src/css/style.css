@@ -7,3 +7,7 @@ textarea[name="reportText"] {
    overflow: auto;
    outline: none;
  }
+
+ .hide {
+    display: none;
+ }
