@@ -7,6 +7,6 @@ define(function(require) {
   return Component.extend({
      template,
 
-     filterState: ({advertise}) => ({advertise})
+     filterState: ({item}) => ({item})
   });
 });

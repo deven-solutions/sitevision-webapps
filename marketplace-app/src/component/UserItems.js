@@ -7,10 +7,10 @@ define(function(require) {
 
      tagName: 'ul',
 
-     childProperty: 'advertises',
+     childProperty: 'items',
 
-     childComponentPath: 'Advertise',
+     childComponentPath: 'UserItem',
 
-     filterState: ({advertises}) => ({advertises})
+     filterState: ({items}) => ({items})
   });
 });	

@@ -1,4 +1,4 @@
-<h4><%= i18n('latestAds')%></h4>
+<h4><%= i18n('userItems')%></h4>
 <table class="env-table">
   <thead>
      <tr>
@@ -8,10 +8,12 @@
         <th><%= i18n('name') %></th>
         <th><%= i18n('phoneNumber') %></th>
         <th><%= i18n('email') %></th>
+        <th></th>
+        <th></th>
      </tr>
   </thead>
-  <%= renderer.renderComponent('Advertises') %>
+  <%= renderer.renderComponent('UserItems') %>
 </table>
 
 <a href="<%= getUrl('/create') %>"><%= i18n('create') %></a>
-<a href="<%= getUrl('/userAds') %>"><%= i18n('userAds') %></a>
+<a href="<%= getUrl('/') %>"><%= i18n('latestItems') %></a>

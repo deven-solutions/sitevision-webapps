@@ -2,8 +2,8 @@ define(function(require) {
   'use strict';
 
   const storage = require('storage');
-  const advertises = storage.getCollectionDataStore('advertises');
-  const contacts = storage.getKeyValueDataStore('contactinfo');
+  const items = storage.getCollectionDataStore('marketplace_items');
+  const contacts = storage.getKeyValueDataStore('marketplace_contactinfo');
   const logUtil = require('LogUtil');
   const appData = require('appData');
 
@@ -22,14 +22,14 @@ define(function(require) {
         logUtil.error(e);
       }
     },
-    getAdvertises: (filterByUserEmail) => {
-      const adsLimit = Number(appData.get('adsLimit'));
+    getItems: (filterByUserEmail) => {
+      const itemsLimit = Number(appData.get('itemsLimit'));
       try {
         let result;
         if (filterByUserEmail) {
-          result = advertises.find('ds.analyzed.userMail:' + filterByUserEmail, adsLimit);
+          result = items.find('ds.analyzed.userMail:' + filterByUserEmail, itemsLimit);
         } else {
-          result = advertises.find('*');
+          result = items.find('*');
         }
         const data = result.toArray();
         return data;
@@ -37,35 +37,35 @@ define(function(require) {
         logUtil.error(e);
       }
     },
-    editAdvertise: (id, advertise) => {
+    editItem: (id, item) => {
       try {
-        const updatedAdvertise = advertises.set(id, advertise);
-        advertises.instantIndex(updatedAdvertise.dsid);
-        return updatedAdvertise;
+        const updatedItem = items.set(id, item);
+        items.instantIndex(updatedItem.dsid);
+        return updatedItem;
       } catch (e) {
         logUtil.error(e);
       }
     },
-    removeAdvertise: (id) => {
+    removeItem: (id) => {
       try {
-        const updatedAdvertise = advertises.remove(id);
-        advertises.instantIndex(updatedAdvertise.dsid);
+        const updatedItem = items.remove(id);
+        items.instantIndex(updatedItem.dsid);
       } catch (e) {
         logUtil.error(e);
       }
     },
-    createAdvertise: (advertise) => {
+    createItem: (item) => {
       try {
-        const data = advertises.add(advertise);
-        advertises.instantIndex(data.dsid);
+        const data = items.add(item);
+        items.instantIndex(data.dsid);
       } catch (e) {
         logUtil.error(e);
       }
     },
-    getAdvertise: (id) => {
+    getItem: (id) => {
       try {
-        const advertise = advertises.get(id);
-        return advertise;
+        const item = items.get(id);
+        return item;
       } catch (e) {
         logUtil.error(e)
       }

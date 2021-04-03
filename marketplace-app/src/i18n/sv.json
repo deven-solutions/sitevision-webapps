@@ -3,7 +3,7 @@
    "emailErrorMessage": "Ogiltig e-postadress",
    "limitErrorMessage" : "Ogilitgt värde, måste vara ett heltal större än noll",
    "edit": "Redigera",
-   "showAds": "Visa annonser",
+   "showItems": "Visa annonser",
    "back": "Tillbaka",
    "save": "Spara",
    "create": "Skapa ny annons",
@@ -11,12 +11,13 @@
    "description": "Beskrivning",
    "price": "Pris",
    "delete": "Ta bort",
-   "latestAds": "Senaste annonserna",
-   "userAds": "Mina annonser",
+   "latestItems": "Senaste annonserna",
+   "userItems": "Mina annonser",
    "administratorEmail": "E-postadress för annonsplatsansvarig",
-   "adsLimit": "Max antal annonser per användare",
-   "adsLimitExceeded": "Max antal annonser överskridet. Ta bort en annons och försök igen.",
+   "itemsLimit": "Max antal annonser per användare",
+   "itemsLimitExceeded": "Max antal annonser överskridet. Ta bort en annons och försök igen.",
    "email": "E-postadress",
    "phoneNumber": "Telefonnummer",
-   "name": "Namn"
+   "name": "Namn",
+   "remove": "Ta bort"
 }

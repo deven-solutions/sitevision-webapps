@@ -2,16 +2,16 @@
   // overwrite default validate function
   window.validate = function() {
      const emailInput = document.querySelector('input[name=administratorEmail]');
-     const adsLimitInput = document.querySelector('input[name=adsLimit]');
+     const itemsLimitInput = document.querySelector('input[name=itemsLimit]');
      const emailErrorText = this.$('#email-error-message').text();
-     const adsLimitErrorText = this.$('#limit-error-message').text();
+     const itemsLimitErrorText = this.$('#limit-error-message').text();
      const validEmail = isValidEmail(emailInput.value);
-     const validAdsLimit = isValidAdsLimit(adsLimitInput.value);
+     const validitemsLimit = isValidItemsLimit(itemsLimitInput.value);
 
      toggleValidationMessage(emailInput, validEmail, emailErrorText);
-     toggleValidationMessage(adsLimitInput, validAdsLimit, adsLimitErrorText);
+     toggleValidationMessage(itemsLimitInput, validitemsLimit, itemsLimitErrorText);
      
-     return validEmail && validAdsLimit;
+     return validEmail && validitemsLimit;
   };
 
   function toggleValidationMessage(inputElement, isValid, textErrorElement) {
@@ -35,8 +35,8 @@
     return re.test(String(email).toLowerCase());
   }
 
-  function isValidAdsLimit(adsLimit) {
-    return !Number.isNaN(adsLimit) && adsLimit > 0;
+  function isValidItemsLimit(itemsLimit) {
+    return !Number.isNaN(itemsLimit) && itemsLimit > 0;
   }
 
 }());

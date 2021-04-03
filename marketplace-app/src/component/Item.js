@@ -2,7 +2,7 @@ define(function(require) {
   'use strict';
 
   const Component = require('Component');
-  const template = require('/template/userAdvertise');
+  const template = require('/template/item');
 
   return Component.extend({
      template,

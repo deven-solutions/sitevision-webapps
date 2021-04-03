@@ -11,12 +11,12 @@
 
   router.get('/', (req, res) => {
     res.render('/', {
-      advertises: dataStoreProvider.getAdvertises()
+      items: dataStoreProvider.getItems()
     });
   });
 
-  router.get('/userAds', (req, res) => {
-    renderUserAdvertises(res);
+  router.get('/userItems', (req, res) => {
+    renderUserItems(res);
   });
 
   router.get('/create', (req, res) => {
@@ -35,34 +35,34 @@
       phoneNumber: req.params.phoneNumber
     };
     dataStoreProvider.setContactInfo(userMail, contactInfo);
-    const adsLimit = appData.get('adsLimit');
-    const userAdvertises = getUserAdvertises();
-    if (userAdvertises.length < adsLimit) {
-      const advertise = {
+    const itemsLimit = appData.get('itemsLimit');
+    const userItems = getUserItems();
+    if (userItems.length < itemsLimit) {
+      const item = {
         title: req.params.title,
         description: req.params.description,
         price: req.params.price,
         userMail: userMail,
         contactInfo: contactInfo
       };
-      dataStoreProvider.createAdvertise(advertise);
-      renderUserAdvertises(res);
+      dataStoreProvider.createItem(item);
+      renderUserItems(res);
     } else {
-      res.render('/adsLimitExceeded', {});
+      res.render('/itemsLimitExceeded', {});
     }
   });
 
   router.get('/edit', (req, res) => {
     if (hasWriteAccess(req.params.id)) {
       res.render('/edit', {
-        advertise: dataStoreProvider.getAdvertise(req.params.id)
+        item: dataStoreProvider.getItem(req.params.id)
       });
     }
   });
 
   router.post('/edit', (req, res) => {
     if (hasWriteAccess(req.params.dsid)) {
-      const advertise = {
+      const item = {
         title: req.params.title,
         description: req.params.description,
         price: req.params.price,
@@ -72,36 +72,36 @@
           phoneNumber: req.params.phoneNumber 
         }
       };
-      dataStoreProvider.editAdvertise(req.params.dsid, advertise);
+      dataStoreProvider.editItem(req.params.dsid, item);
       const userMail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
-      dataStoreProvider.setContactInfo(userMail, advertise.contactInfo);
+      dataStoreProvider.setContactInfo(userMail, item.contactInfo);
     }
-    renderUserAdvertises(res);
+    renderUserItems(res);
   });
 
   router.post('/remove', (req, res) => {
     var dsid = req.params.dsid;
     if (hasWriteAccess(dsid)) {
-      dataStoreProvider.removeAdvertise(dsid);
+      dataStoreProvider.removeItem(dsid);
     }
-    renderUserAdvertises(res);
+    renderUserItems(res);
   });
 
-  function renderUserAdvertises(res) {
-    res.render('/userAds', {
-      advertises: getUserAdvertises()
+  function renderUserItems(res) {
+    res.render('/userItems', {
+      items: getUserItems()
     });
   }
 
-  function getUserAdvertises() {
+  function getUserItems() {
     const currentUserEmail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
-    return dataStoreProvider.getAdvertises(currentUserEmail);
+    return dataStoreProvider.getItems(currentUserEmail);
   }
 
-  function hasWriteAccess(adsId) {
-    const advertise = dataStoreProvider.getAdvertise(adsId);
+  function hasWriteAccess(id) {
+    const item = dataStoreProvider.getItem(id);
     const currentUserMail = properties.get(portletContextUtil.getCurrentUser(), 'mail');
-    return advertise.userMail === currentUserMail;
+    return item.userMail === currentUserMail;
   }
 
 })();
