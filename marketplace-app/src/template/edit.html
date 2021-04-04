@@ -1,5 +1,37 @@
-<h3><%= i18n('edit') %></h3>
-
-<%= renderer.renderComponent('EditForm') %>
-
-<a href="<%= getUrl('/userItems') %>"><%= i18n('back') %></a>
+<%= renderer.renderComponent('Menu') %>
+<form class="env-form" action="<%= getUrl('/edit', {dsid:item.dsid}) %>" method="post">
+  <div class="env-form-element env-m-top--large">
+     <div class="env-form-element__control">
+        <input autocomplete="off" type="text" class="env-form-input" placeholder="<%= i18n('title') %>" value="<%- item.title %>" name="title">
+     </div>
+  </div>
+  <div class="env-form-element">
+     <div class="env-form-element__control">
+        <input autocomplete="off" type="text" placeholder="<%= i18n('description') %>" value="<%- item.description %>" class="env-form-input" name="description">
+     </div>
+  </div>
+  <div class="env-form-element">
+     <div class="env-form-element__control">
+        <input autocomplete="off" type="number" placeholder="<%= i18n('price') %>" value="<%- item.price %>" class="env-form-input" name="price">
+     </div>
+  </div>
+  <div class="env-form-element">
+   <div class="env-form-element__control">
+      <input autocomplete="off" type="text" value="<%- item.contactInfo.name %>" placeholder="<%= i18n('name') %>" class="env-form-input" name="name">
+   </div>
+</div>
+<div class="env-form-element">
+   <div class="env-form-element__control">
+      <input autocomplete="off" type="number" value="<%- item.contactInfo.phoneNumber %>" placeholder="<%= i18n('phoneNumber') %>" class="env-form-input" name="phoneNumber">
+   </div>
+</div>
+<div class="env-form-element">
+   <div class="env-form-element__control">
+      <input autocomplete="off" type="email" value="<%- item.contactInfo.email %>" placeholder="<%= i18n('email') %>" class="env-form-input" name="email">
+   </div>
+</div>
+  <div class="env-form-element">
+     <input class="env-button env-button--primary" type="submit" value="<%= i18n('save') %>" />
+     <a class="env-button env-button" href="<%= getUrl('/userItems') %>"><%= i18n('back') %></a>
+  </div>
+</form>

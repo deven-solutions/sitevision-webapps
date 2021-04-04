@@ -22,9 +22,7 @@ define(function (require) {
       }
       return template;
     },
-
-    className: 'webapp-boilerplate',
-
-    filterState: ({route}) => ({route}),
+    className: 'webapp-marketplace',
+    filterState: ({route}) => ({route})
   });
 });

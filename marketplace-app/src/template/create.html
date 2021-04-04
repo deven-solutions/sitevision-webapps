@@ -1,5 +1,6 @@
+<%= renderer.renderComponent('Menu') %>
 <form class="env-form" action="<%= getUrl('/create') %>" method="post">
-   <div class="env-form-element">
+   <div class="env-form-element env-m-top--large">
       <div class="env-form-element__control">
          <input autocomplete="off" type="text" class="env-form-input" placeholder="<%= i18n('title') %>" name="title">
       </div>
@@ -30,7 +31,6 @@
       </div>
    </div>
    <div class="env-form-element">
-      <input class="env-button env-button--primary" type="submit" value="<%= i18n('create') %>" />
+      <input class="env-button env-button--primary" type="submit" value="<%= i18n('save') %>" />
    </div>
 </form>
-<a href="<%= getUrl('/userItems') %>"><%= i18n('userItems') %></a>

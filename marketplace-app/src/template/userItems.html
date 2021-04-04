@@ -1,4 +1,4 @@
-<h4><%= i18n('userItems')%></h4>
+<%= renderer.renderComponent('Menu') %>
 <table class="env-table">
   <thead>
      <tr>
@@ -14,6 +14,3 @@
   </thead>
   <%= renderer.renderComponent('UserItems') %>
 </table>
-
-<a href="<%= getUrl('/create') %>"><%= i18n('create') %></a>
-<a href="<%= getUrl('/') %>"><%= i18n('latestItems') %></a>

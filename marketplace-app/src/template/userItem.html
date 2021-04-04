@@ -17,7 +17,7 @@
   <%- contactInfo.email %>
 </td>
 <td>
-  <a href="<%= getUrl('/edit', {id:dsid}) %>"><%= i18n('edit') %> </a>
+  <a class="env-button env-button--small env-button--primary" href="<%= getUrl('/edit', {id:dsid}) %>"><%= i18n('edit') %> </a>
 </td>
 <td>
   <form class="env-form" method="post" action="<%= getUrl('/remove', {dsid:dsid}) %>">
