@@ -1,11 +1,11 @@
-define(function(require) {
-  'use strict';
+define(function (require) {
+  "use strict";
 
-  const Component = require('Component');
-  const template = require('/template/userItem');
+  const Component = require("Component");
+  const template = require("/template/userItem");
 
   return Component.extend({
-     template,
-     tagName: 'tr'
+    template,
+    tagName: "tr",
   });
 });

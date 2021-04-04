@@ -1,28 +1,29 @@
 define(function (require) {
-  'use strict';
+  "use strict";
 
-  const Component = require('Component');
-  const template = require('/template/main');
-  const createTemplate = require('/template/create');
-  const editTemplate = require('/template/edit');
-  const userItemsTemplate = require('/template/userItems');
-  const itemsLimitExceededTemplate = require('/template/itemsLimitExceeded');
+  const Component = require("Component");
+  const itemsTemplate = require("/template/items");
+  const createTemplate = require("/template/create");
+  const editTemplate = require("/template/edit");
+  const userItemsTemplate = require("/template/userItems");
+  const itemsLimitExceededTemplate = require("/template/itemsLimitExceeded");
 
   return Component.extend({
-
-    getTemplate: function() {
-      if (this.state.route === '/create') {
-        return createTemplate;
-      } else if (this.state.route === '/edit') {
-        return editTemplate;
-      } else if (this.state.route === '/userItems') {
-        return userItemsTemplate;
-      } else if (this.state.route === '/itemsLimitExceeded') {
-        return itemsLimitExceededTemplate;
+    getTemplate: function () {
+      switch (this.state.route) {
+        case "/create":
+          return createTemplate;
+        case "/edit":
+          return editTemplate;
+        case "/userItems":
+          return userItemsTemplate;
+        case "/itemsLimitExceeded":
+          return itemsLimitExceededTemplate;
+        default:
+          return itemsTemplate;
       }
-      return template;
     },
-    className: 'webapp-marketplace',
-    filterState: ({route}) => ({route})
+    className: "webapp-marketplace",
+    filterState: ({ route }) => ({ route }),
   });
 });

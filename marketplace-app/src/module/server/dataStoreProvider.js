@@ -1,11 +1,11 @@
-define(function(require) {
-  'use strict';
+define(function (require) {
+  "use strict";
 
-  const storage = require('storage');
-  const items = storage.getCollectionDataStore('marketplace_items');
-  const contacts = storage.getKeyValueDataStore('marketplace_contactinfo');
-  const logUtil = require('LogUtil');
-  const appData = require('appData');
+  const storage = require("storage");
+  const items = storage.getCollectionDataStore("marketplace_items");
+  const contacts = storage.getKeyValueDataStore("marketplace_contactinfo");
+  const logUtil = require("LogUtil");
+  const appData = require("appData");
 
   return {
     getContactInfo(email) {
@@ -23,16 +23,19 @@ define(function(require) {
       }
     },
     getItems: (filterByUserEmail) => {
-      const itemsLimit = Number(appData.get('itemsLimit'));
+      const itemsLimit = Number(appData.get("itemsLimit"));
       try {
         let result;
         if (filterByUserEmail) {
-          result = items.find('ds.analyzed.userMail:' + filterByUserEmail, itemsLimit);
+          result = items.find(
+            "ds.analyzed.userMail:" + filterByUserEmail,
+            itemsLimit
+          );
         } else {
-          result = items.find('*');
+          result = items.find("*");
         }
         const data = result.toArray();
-        data.forEach(item => item.id = item.dsid); // Always provide an "id" attribute for list items.
+        data.forEach((item) => (item.id = item.dsid)); // ListCompontent
         return data;
       } catch (e) {
         logUtil.error(e);
@@ -68,8 +71,8 @@ define(function(require) {
         const item = items.get(id);
         return item;
       } catch (e) {
-        logUtil.error(e)
+        logUtil.error(e);
       }
-    }
+    },
   };
 });
