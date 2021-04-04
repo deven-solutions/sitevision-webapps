@@ -10,6 +10,7 @@ define(function (require) {
     onRendered: function () {
       switch (this.state.route) {
         case "/create":
+        case "/upload":
         case "/itemsLimitExceeded":
           this.$("#menu-create").addClass("env-nav__link--active");
           break;

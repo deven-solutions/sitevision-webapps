@@ -7,10 +7,17 @@
   const properties = require("Properties");
   const appData = require("appData");
   const mailBuilder = require("MailBuilder");
+  const logUtil = require("LogUtil");
+  const resourceLocatorUtil = require('ResourceLocatorUtil');
+  const imageUtil = require('ImageUtil');
+  const imageRenderer = require('ImageRenderer');
+  const utils = require('Utils');
 
   router.get("/", (req, res) => {
+    const items = dataStoreProvider.getItems();
+    renderItemImages(items);
     res.render("/", {
-      items: dataStoreProvider.getItems(),
+      items: items,
     });
   });
 
@@ -19,27 +26,24 @@
   });
 
   router.get("/create", (req, res) => {
-    const userMail = properties.get(
-      portletContextUtil.getCurrentUser(),
-      "mail"
-    );
-    const contactInfo = dataStoreProvider.getContactInfo(userMail);
+    const currentUser = portletContextUtil.getCurrentUser();
+    const userId = currentUser.getIdentifier();
+    const userMail = properties.get(currentUser, "mail");
+    const contactInfo = dataStoreProvider.getContactInfo(userId);
     res.render("/create", {
       contactInfo: contactInfo || { email: userMail },
     });
   });
 
   router.post("/create", (req, res) => {
-    const userMail = properties.get(
-      portletContextUtil.getCurrentUser(),
-      "mail"
-    );
+    const currentUser = portletContextUtil.getCurrentUser();
+    const userId = currentUser.getIdentifier();
     const contactInfo = {
       email: req.params.email,
       name: req.params.name,
       phoneNumber: req.params.phoneNumber,
     };
-    dataStoreProvider.setContactInfo(userMail, contactInfo);
+    dataStoreProvider.setContactInfo(userId, contactInfo);
     const itemsLimit = appData.get("itemsLimit");
     const userItems = getUserItems();
     if (userItems.length < itemsLimit) {
@@ -47,11 +51,11 @@
         title: req.params.title,
         description: req.params.description,
         price: req.params.price,
-        userMail: userMail,
+        userId: userId,
         contactInfo: contactInfo,
       };
-      dataStoreProvider.createItem(item);
-      renderUserItems(res);
+      const id = dataStoreProvider.createItem(item);
+      res.render("/upload", { id: id });
     } else {
       res.render("/itemsLimitExceeded", {});
     }
@@ -59,8 +63,10 @@
 
   router.get("/edit", (req, res) => {
     if (hasWriteAccess(req.params.id)) {
+      const item = dataStoreProvider.getItem(req.params.id);
+      renderItemImages([item]);
       res.render("/edit", {
-        item: dataStoreProvider.getItem(req.params.id),
+        item: item
       });
     }
   });
@@ -78,17 +84,15 @@
         },
       };
       dataStoreProvider.editItem(req.params.dsid, item);
-      const userMail = properties.get(
-        portletContextUtil.getCurrentUser(),
-        "mail"
-      );
-      dataStoreProvider.setContactInfo(userMail, item.contactInfo);
+      const currentUser = portletContextUtil.getCurrentUser();
+      const userId = currentUser.getIdentifier();
+      dataStoreProvider.setContactInfo(userId, item.contactInfo);
     }
     renderUserItems(res);
   });
 
   router.post("/remove", (req, res) => {
-    var dsid = req.params.dsid;
+    const dsid = req.params.dsid;
     if (hasWriteAccess(dsid)) {
       dataStoreProvider.removeItem(dsid);
     }
@@ -106,6 +110,38 @@
     res.json({ mailSent: mailSent });
   });
 
+  router.post('/upload/:id', (req, res) => {
+    const itemId = req.params.id;
+    if (hasWriteAccess(itemId)) {
+      const file = req.file('file');
+      const repository = resourceLocatorUtil.getLocalImageRepository();
+      const image = imageUtil.createImageFromTemporary(repository, file);
+      const item = dataStoreProvider.getItem(req.params.id);
+      item.imageId = image.getIdentifier();
+      dataStoreProvider.editItem(itemId, item);
+    }
+    renderUserItems(res);
+ });
+
+  function renderItemImages(items) {
+    const nodes = resourceLocatorUtil.getLocalImageRepository().getNodes();
+    for (const index in items) {
+      const item = items[index];
+      while (nodes.hasNext()) {
+        const node = nodes.next();
+        if (node.getIdentifier() === item.imageId) {
+          const imageScaler = utils.getImageScaler(200, 200);
+          imageRenderer.setImageScaler(imageScaler);
+          imageRenderer.clearSourceSetMode();
+          imageRenderer.update(node);
+          imageRenderer.forceUseImageScaler();
+          item.image = imageRenderer.render();
+          break;
+        }
+      }
+    }
+  }
+
   function renderUserItems(res) {
     res.render("/userItems", {
       items: getUserItems(),
@@ -113,19 +149,17 @@
   }
 
   function getUserItems() {
-    const currentUserEmail = properties.get(
-      portletContextUtil.getCurrentUser(),
-      "mail"
-    );
-    return dataStoreProvider.getItems(currentUserEmail);
+    const currentUser = portletContextUtil.getCurrentUser();
+    const userId = currentUser.getIdentifier();
+    const items = dataStoreProvider.getItems(userId);
+    renderItemImages(items);
+    return items;
   }
 
   function hasWriteAccess(id) {
     const item = dataStoreProvider.getItem(id);
-    const currentUserMail = properties.get(
-      portletContextUtil.getCurrentUser(),
-      "mail"
-    );
-    return item.userMail === currentUserMail;
+    const currentUser = portletContextUtil.getCurrentUser();
+    const userId = currentUser.getIdentifier();
+    return item.userId === userId;
   }
 })();

@@ -7,12 +7,15 @@ define(function (require) {
   const editTemplate = require("/template/edit");
   const userItemsTemplate = require("/template/userItems");
   const itemsLimitExceededTemplate = require("/template/itemsLimitExceeded");
+  const uploadTemplate = require("/template/upload");
 
   return Component.extend({
     getTemplate: function () {
       switch (this.state.route) {
         case "/create":
           return createTemplate;
+        case "/upload":
+          return uploadTemplate;
         case "/edit":
           return editTemplate;
         case "/userItems":

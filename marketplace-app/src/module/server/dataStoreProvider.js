@@ -8,27 +8,27 @@ define(function (require) {
   const appData = require("appData");
 
   return {
-    getContactInfo(email) {
+    getContactInfo(userId) {
       try {
-        return contacts.get(email);
+        return contacts.get(userId);
       } catch (e) {
         logUtil.error(e);
       }
     },
-    setContactInfo(email, contactInfo) {
+    setContactInfo(userId, contactInfo) {
       try {
-        contacts.put(email, contactInfo);
+        contacts.put(userId, contactInfo);
       } catch (e) {
         logUtil.error(e);
       }
     },
-    getItems: (filterByUserEmail) => {
+    getItems: (filterByUserId) => {
       const itemsLimit = Number(appData.get("itemsLimit"));
       try {
         let result;
-        if (filterByUserEmail) {
+        if (filterByUserId) {
           result = items.find(
-            "ds.analyzed.userMail:" + filterByUserEmail,
+            "ds.analyzed.userId:" + filterByUserId,
             itemsLimit
           );
         } else {
@@ -62,6 +62,7 @@ define(function (require) {
       try {
         const data = items.add(item);
         items.instantIndex(data.dsid);
+        return data.dsid;
       } catch (e) {
         logUtil.error(e);
       }
