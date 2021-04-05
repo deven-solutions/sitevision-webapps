@@ -1,0 +1,35 @@
+<ul class="env-list env-list--horizontal--fixed env-list--horizontal--fixed--2">
+   #foreach ($article in $articles)
+   <li class="env-list__item">
+      <article class="env-news-item">
+         <div class="env-news-item__media">
+            $article.image
+         </div>
+         <header class="env-news-item__headline">
+            <div class="env-news-item__headline__title">
+               <h2 class="env-text">
+                  $article.title
+               </h2>
+            </div>
+         </header>
+         <div class="env-news-item__preamble">
+            <p class="env-text">
+               $article.description
+            </p>
+         </div>
+         <div class="env-news-item__preamble">
+            <p class="env-text">
+               $article.content
+            </p>
+         </div>
+         #if($DEBUG)
+         <div class="env-news-item__preamble">
+            <p class="env-text">
+               $article.debug
+            </p>
+         </div>
+         #end
+      </article>
+   </li>
+   #end
+</ul>
