@@ -3,8 +3,17 @@
   class="env-form env-w--50 env-p-left--large"
   action="<%= getUrl('/create') %>"
   method="post"
+  enctype="multipart/form-data"
 >
   <div class="env-form-element env-m-top--large">
+    <label for="file" class="env-form-element__label"
+      ><%= i18n('image') %></label
+    >
+    <div class="env-form-element__control">
+      <input id="file" type="file" name="file" required />
+    </div>
+  </div>
+  <div class="env-form-element">
     <label for="title" class="env-form-element__label"
       ><%= i18n('title') %></label
     >
@@ -16,6 +25,7 @@
         placeholder="<%= i18n('enter') %> <%= i18n('title').toLowerCase() %>"
         name="title"
         id="title"
+        required
       />
     </div>
   </div>
@@ -31,6 +41,7 @@
         class="env-form-input"
         name="description"
         id="description"
+        required
       />
     </div>
   </div>
@@ -46,6 +57,7 @@
         class="env-form-input"
         name="price"
         id="price"
+        required
       />
     </div>
   </div>
@@ -62,6 +74,7 @@
         class="env-form-input"
         name="name"
         id="name"
+        required
       />
     </div>
   </div>
@@ -78,6 +91,7 @@
         class="env-form-input"
         name="phoneNumber"
         id="phoneNumber"
+        required
       />
     </div>
   </div>
@@ -94,6 +108,7 @@
         class="env-form-input"
         name="email"
         id="email"
+        required
       />
     </div>
   </div>
