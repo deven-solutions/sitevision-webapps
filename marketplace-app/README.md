@@ -1,7 +1,4 @@
-# webapp-boilerplate
-
-Boilerplate code for a simple WebApp
-
+# webapp-marketplace
 ## Building
 
 - `npm run create-addon` creates an addon with the name configured in the setup task
