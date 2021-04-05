@@ -88,7 +88,7 @@
           phoneNumber: req.params.phoneNumber,
         },
       };
-      dataStoreProvider.editItem(req.params.dsid, item);
+      dataStoreProvider.setItem(req.params.dsid, item);
       const currentUser = portletContextUtil.getCurrentUser();
       const userId = currentUser.getIdentifier();
       dataStoreProvider.setContactInfo(userId, item.contactInfo);
@@ -115,15 +115,32 @@
     res.json({ mailSent: mailSent });
   });
 
+  router.get("/upload/:id", (req, res) => {
+    const itemId = req.params.id;
+    res.render("/upload", {
+      id: itemId,
+    });
+  });
+
   router.post('/upload/:id', (req, res) => {
     const itemId = req.params.id;
     if (hasWriteAccess(itemId)) {
+      const item = dataStoreProvider.getItem(itemId);
+      /* TODO Remove node.. UnsupportedRepositoryOperationException
+      const nodes = resourceLocatorUtil.getLocalImageRepository().getNodes();
+      while (nodes.hasNext()) {
+        const node = nodes.next();
+        if (node.getIdentifier() === item.imageId) {
+          node.remove();
+          logUtil.info("Image removed");
+          break;
+        }
+      }*/
       const file = req.file('file');
       const repository = resourceLocatorUtil.getLocalImageRepository();
       const image = imageUtil.createImageFromTemporary(repository, file);
-      const item = dataStoreProvider.getItem(req.params.id);
       item.imageId = image.getIdentifier();
-      dataStoreProvider.editItem(itemId, item);
+      dataStoreProvider.setItem(itemId, item);
     }
     renderUserItems(res);
  });

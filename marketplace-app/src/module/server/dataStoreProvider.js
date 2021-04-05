@@ -41,7 +41,7 @@ define(function (require) {
         logUtil.error(e);
       }
     },
-    editItem: (id, item) => {
+    setItem: (id, item) => {
       try {
         const updatedItem = items.set(id, item);
         items.instantIndex(updatedItem.dsid);

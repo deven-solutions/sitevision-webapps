@@ -19,6 +19,14 @@
           <li class="env-list__item">
             <a
               class="env-button env-button--small env-button--primary"
+              href="<%= getUrl('/upload/' + dsid) %>"
+            >
+              <%= i18n('changeImage') %>
+            </a>
+          </li>
+          <li class="env-list__item">
+            <a
+              class="env-button env-button--small env-button--primary"
               href="<%= getUrl('/edit', {id:dsid}) %>"
             >
               <%= i18n('edit') %>
