@@ -1,13 +1,17 @@
 <%= renderer.renderComponent('Menu') %>
-<form class="env-form" action="<%= getUrl('/upload') %>/<%- id %>" method="post" enctype="multipart/form-data">
-   <div class="env-form-element">
-      <label for="file" class="env-form-element__label">File</label>
-      <div class="env-form-element__control">
-         <input id="file" type="file" name="file">
-      </div>
-   </div>
-   <div class="env-form-element">
-      <button type="submit" class="env-button env-button--primary">Submit</button>
-   </div>
+<form
+  class="env-form"
+  action="<%= getUrl('/upload') %>/<%- id %>"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <div class="env-form-element">
+    <label for="file" class="env-form-element__label"><%= i18n('file') %></label>
+    <div class="env-form-element__control">
+      <input id="file" type="file" name="file" />
+    </div>
+  </div>
+  <div class="env-form-element">
+    <button type="submit" class="env-button env-button--primary"><%= i18n('upload') %></button>
+  </div>
 </form>
-

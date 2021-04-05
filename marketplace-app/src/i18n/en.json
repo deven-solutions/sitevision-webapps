@@ -27,5 +27,12 @@
    "send": "Send",
    "mailNotSent": "Mail not sent",
    "mailSubjectPart1": "Marketplace item \"",
-   "mailSubjectPart2": "\" has been reported"
+   "mailSubjectPart2": "\" has been reported",
+   "sendEmail": "Send e-mail",
+   "call": "Call",
+   "createdBy": "Created by",
+   "file": "Fil",
+   "upload": "Upload",
+   "enter": "Enter"
+
 }

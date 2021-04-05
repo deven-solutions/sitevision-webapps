@@ -7,6 +7,7 @@ define(function (require) {
     tagName: "ul",
     childProperty: "items",
     childComponentPath: "UserItem",
-    filterState: ({ items }) => ({ items }),
+    className: "env-list env-list-dividers--top",
+    filterState: ({ items }) => ({ items })
   });
 });

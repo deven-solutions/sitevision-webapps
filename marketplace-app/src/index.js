@@ -124,9 +124,8 @@
  });
 
   function renderItemImages(items) {
-    const nodes = resourceLocatorUtil.getLocalImageRepository().getNodes();
-    for (const index in items) {
-      const item = items[index];
+    items.forEach(item => {
+      const nodes = resourceLocatorUtil.getLocalImageRepository().getNodes();
       while (nodes.hasNext()) {
         const node = nodes.next();
         if (node.getIdentifier() === item.imageId) {
@@ -139,7 +138,10 @@
           break;
         }
       }
-    }
+      if (!item.image) { // Default image
+        item.image = "<img src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' width='200' height='200' alt='' />";
+      }
+    });
   }
 
   function renderUserItems(res) {

@@ -1,19 +1,9 @@
-<%= renderer.renderComponent('Menu') %>
-<table class="env-table">
-  <thead>
-     <tr>
-        <th><%= i18n('title') %></th>
-        <th><%= i18n('description') %></th>
-        <th><%= i18n('price') %></th>
-        <th><%= i18n('name') %></th>
-        <th><%= i18n('phoneNumber') %></th>
-        <th><%= i18n('email') %></th>
-        <th></th>
-     </tr>
-  </thead>
-  <%= renderer.renderComponent('Items') %>
-</table>
-
-<div id="i18-mailSubjectPart1" class="hide"><%= i18n('mailSubjectPart1') %></div>
-<div id="i18-mailSubjectPart2" class="hide"><%= i18n('mailSubjectPart2') %></div>
+<%= renderer.renderComponent('Menu') %> 
+<%= renderer.renderComponent('Items') %>
+<div id="i18-mailSubjectPart1" class="hide">
+  <%= i18n('mailSubjectPart1') %>
+</div>
+<div id="i18-mailSubjectPart2" class="hide">
+  <%= i18n('mailSubjectPart2') %>
+</div>
 <div id="i18-mailNotSent" class="hide"><%= i18n('mailNotSent') %></div>

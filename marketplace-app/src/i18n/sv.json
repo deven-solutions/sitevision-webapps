@@ -9,7 +9,7 @@
    "create": "Skapa ny annons",
    "title": "Titel",
    "description": "Beskrivning",
-   "price": "Pris",
+   "price": "Pris i kronor",
    "delete": "Ta bort",
    "latestItems": "Senaste annonserna",
    "userItems": "Mina annonser",
@@ -27,5 +27,11 @@
    "send": "Skicka",
    "mailNotSent": "Mejlet skickades inte",
    "mailSubjectPart1": "Annonsen \"",
-   "mailSubjectPart2": "\" har rapporterats"
+   "mailSubjectPart2": "\" har rapporterats",
+   "sendEmail": "Skicka e-post",
+   "call": "Ring",
+   "createdBy": "Säljs av",
+   "file": "Fil",
+   "upload": "Ladda upp",
+   "enter": "Ange"
 }

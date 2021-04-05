@@ -1,29 +1,46 @@
-<td>
-  <%= image %>
-  <%- title %>
-</td>
-<td>
-  <%- description %>
-</td>
-<td>
-  <%- price %>
-</td>
-<td>
-  <%- contactInfo.name %>
-</td>
-<td>
-  <%- contactInfo.phoneNumber %>
-</td>
-<td>
-  <%- contactInfo.email %>
-</td>
-<td>
-  <a class="env-button env-button--small env-button--primary" href="<%= getUrl('/edit', {id:dsid}) %>"><%= i18n('edit') %> </a>
-</td>
-<td>
-  <form class="env-form" method="post" action="<%= getUrl('/remove', {dsid:dsid}) %>">
-     <div class="env-form-element">
-        <input class="env-button env-button--small env-button--danger" type="submit" value="<%= i18n('remove') %>" />
-     </div>
-  </form>
-</td>
+<li class="env-list__item env-p-around--large">
+  <article class="env-comment env-media">
+    <div class="env-media__figure"><%= image %></div>
+    <div class="env-media__body">
+      <header class="env-comment__header">
+        <h3 class="env-text"><%- title %></h3>
+      </header>
+      <p class="env-text"><%- description %></p>
+      <footer class="env-comment__footer">
+        <ul class="env-list env-list--horizontal env-list-dividers--left">
+          <li class="env-list__item">
+            <strong><%- price %> kr</strong>
+          </li>
+          <li class="env-list__item">
+            <%= i18n('createdBy') %> <%- contactInfo.name %>
+          </li>
+          <li class="env-list__item"><%- contactInfo.phoneNumber %></li>
+          <li class="env-list__item"><%- contactInfo.email %></li>
+          <li class="env-list__item">
+            <a
+              class="env-button env-button--small env-button--primary"
+              href="<%= getUrl('/edit', {id:dsid}) %>"
+            >
+              <%= i18n('edit') %>
+            </a>
+          </li>
+          <li class="env-list__item">
+            <form
+              class="env-form"
+              method="post"
+              action="<%= getUrl('/remove', {dsid:dsid}) %>"
+            >
+              <div class="env-form-element">
+                <input
+                  class="env-button env-button--small env-button--danger"
+                  type="submit"
+                  value="<%= i18n('remove') %>"
+                />
+              </div>
+            </form>
+          </li>
+        </ul>
+      </footer>
+    </div>
+  </article>
+</li>

@@ -7,3 +7,11 @@ textarea[name="reportText"] {
  .hide {
     display: none;
  }
+
+ a:link {
+   text-decoration: none;
+ }
+
+ .env-list__item .env-form-element {
+   margin-bottom: 0;
+}

@@ -1,36 +1,107 @@
 <%= renderer.renderComponent('Menu') %>
-<form class="env-form" action="<%= getUrl('/create') %>" method="post">
-   <div class="env-form-element env-m-top--large">
-      <div class="env-form-element__control">
-         <input autocomplete="off" type="text" class="env-form-input" placeholder="<%= i18n('title') %>" name="title">
-      </div>
-   </div>
-   <div class="env-form-element">
-      <div class="env-form-element__control">
-         <input autocomplete="off" type="text" placeholder="<%= i18n('description') %>" class="env-form-input" name="description">
-      </div>
-   </div>
-   <div class="env-form-element">
-      <div class="env-form-element__control">
-         <input autocomplete="off" type="number" placeholder="<%= i18n('price') %>" class="env-form-input" name="price">
-      </div>
-   </div>
-   <div class="env-form-element">
-      <div class="env-form-element__control">
-         <input autocomplete="off" type="text" value="<%- contactInfo.name %>" placeholder="<%= i18n('name') %>" class="env-form-input" name="name">
-      </div>
-   </div>
-   <div class="env-form-element">
-      <div class="env-form-element__control">
-         <input autocomplete="off" type="number" value="<%- contactInfo.phoneNumber %>" placeholder="<%= i18n('phoneNumber') %>" class="env-form-input" name="phoneNumber">
-      </div>
-   </div>
-   <div class="env-form-element">
-      <div class="env-form-element__control">
-         <input autocomplete="off" type="email" value="<%- contactInfo.email %>" placeholder="<%= i18n('email') %>" class="env-form-input" name="email">
-      </div>
-   </div>
-   <div class="env-form-element">
-      <input class="env-button env-button--primary" type="submit" value="<%= i18n('save') %>" />
-   </div>
+<form
+  class="env-form env-w--50 env-p-left--large"
+  action="<%= getUrl('/create') %>"
+  method="post"
+>
+  <div class="env-form-element env-m-top--large">
+    <label for="title" class="env-form-element__label"
+      ><%= i18n('title') %></label
+    >
+    <div class="env-form-element__control">
+      <input
+        autocomplete="off"
+        type="text"
+        class="env-form-input"
+        placeholder="<%= i18n('enter') %> <%= i18n('title').toLowerCase() %>"
+        name="title"
+        id="title"
+      />
+    </div>
+  </div>
+  <div class="env-form-element">
+    <div class="env-form-element__control">
+      <label for="description" class="env-form-element__label"
+        ><%= i18n('description') %></label
+      >
+      <input
+        autocomplete="off"
+        type="text"
+        placeholder="<%= i18n('enter') %> <%= i18n('description').toLowerCase() %>"
+        class="env-form-input"
+        name="description"
+        id="description"
+      />
+    </div>
+  </div>
+  <div class="env-form-element">
+    <div class="env-form-element__control">
+      <label for="price" class="env-form-element__label"
+        ><%= i18n('price') %></label
+      >
+      <input
+        autocomplete="off"
+        type="number"
+        placeholder="<%= i18n('enter') %> <%= i18n('price').toLowerCase() %>"
+        class="env-form-input"
+        name="price"
+        id="price"
+      />
+    </div>
+  </div>
+  <div class="env-form-element">
+    <div class="env-form-element__control">
+      <label for="name" class="env-form-element__label"
+        ><%= i18n('name') %></label
+      >
+      <input
+        autocomplete="off"
+        type="text"
+        value="<%- contactInfo.name %>"
+        placeholder="<%= i18n('enter') %> <%= i18n('name').toLowerCase() %>"
+        class="env-form-input"
+        name="name"
+        id="name"
+      />
+    </div>
+  </div>
+  <div class="env-form-element">
+    <div class="env-form-element__control">
+      <label for="phoneNumber" class="env-form-element__label"
+        ><%= i18n('phoneNumber') %></label
+      >
+      <input
+        autocomplete="off"
+        type="number"
+        value="<%- contactInfo.phoneNumber %>"
+        placeholder="<%= i18n('enter') %> <%= i18n('phoneNumber').toLowerCase() %>"
+        class="env-form-input"
+        name="phoneNumber"
+        id="phoneNumber"
+      />
+    </div>
+  </div>
+  <div class="env-form-element">
+    <div class="env-form-element__control">
+      <label for="email" class="env-form-element__label"
+        ><%= i18n('email') %></label
+      >
+      <input
+        autocomplete="off"
+        type="email"
+        value="<%- contactInfo.email %>"
+        placeholder="<%= i18n('enter') %> <%= i18n('email').toLowerCase() %>"
+        class="env-form-input"
+        name="email"
+        id="email"
+      />
+    </div>
+  </div>
+  <div class="env-form-element">
+    <input
+      class="env-button env-button--primary"
+      type="submit"
+      value="<%= i18n('save') %>"
+    />
+  </div>
 </form>

@@ -1,55 +1,106 @@
-<td>
-  <%= image %>
-  <%- title %>
-</td>
-<td>
-  <%- description %>
-</td>
-<td>
-  <%- price %>
-</td>
-<td>
-  <%- contactInfo.name %>
-</td>
-<td>
-  <%- contactInfo.phoneNumber %>
-</td>
-<td>
-  <%- contactInfo.email %>
-</td>
-<td>
-  <button data-modal-dialog data-target="#report-modal-<%-dsid%>" type="button" class="env-button env-button--small env-button--primary">
-    <%= i18n('report') %>
-  </button>
-</td>
-
-<div id="report-modal-<%-dsid%>"
-   class="env-modal-dialog"
-   role="dialog"
-   aria-labelledby="reportDialog"
-   aria-hidden="true"
-   tabindex="-1"
->
-   <div class="env-modal-dialog__dialog">
+<li class="env-list__item env-p-around--large">
+  <article class="env-comment env-media">
+    <div class="env-media__figure"><%= image %></div>
+    <div class="env-media__body">
+      <header class="env-comment__header">
+        <h3 class="env-text"><%- title %></h3>
+      </header>
+      <p class="env-text"><%- description %></p>
+      <footer class="env-comment__footer">
+        <ul class="env-list env-list--horizontal env-list-dividers--left">
+          <li class="env-list__item">
+            <strong><%- price %> kr</strong>
+          </li>
+          <li class="env-list__item">
+            <%= i18n('createdBy') %> <%- contactInfo.name %>
+          </li>
+          <li class="env-list__item">
+            <a
+              class="env-button env-button--small"
+              href="tel:<%- contactInfo.phoneNumber %>"
+            >
+              <svg class="env-icon env-icon--small env-align--middle">
+                <use
+                  xlink:href="/sitevision/envision-icons.svg#icon-phone"
+                ></use>
+              </svg>
+              <span> <%= i18n('call') %> </span>
+            </a>
+          </li>
+          <li class="env-list__item">
+            <a
+              class="env-button env-button--small"
+              href="mailto:<%- contactInfo.email %>?subject=<%- title %>"
+              target="_blank"
+            >
+              <svg class="env-icon env-icon--small env-align--middle">
+                <use
+                  xlink:href="/sitevision/envision-icons.svg#icon-chat"
+                ></use>
+              </svg>
+              <span> <%= i18n('sendEmail') %> </span>
+            </a>
+          </li>
+          <li class="env-list__item">
+            <button
+              data-modal-dialog
+              data-target="#report-modal-<%-dsid%>"
+              type="button"
+              class="env-button env-button--small"
+            >
+              <%= i18n('report') %>
+            </button>
+          </li>
+        </ul>
+      </footer>
+    </div>
+  </article>
+  <div
+    id="report-modal-<%-dsid%>"
+    class="env-modal-dialog"
+    role="dialog"
+    aria-labelledby="reportDialog"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="env-modal-dialog__dialog">
       <section class="env-modal-dialog__content">
-         <header class="env-modal-dialog__header">
-            <h5 class="env-text env-modal-dialog__header__title">
-              <%= i18n('reportItem') %>
-            </h5>
-         </header>
-         <div class="env-modal-dialog__body">
-            <p class="env-text">
-              <textarea id="report-modal-text-<%-dsid%>" name="reportText" placeholder="<%= i18n('reportItemText') %>" rows="4" cols="50"></textarea>
-            </p>
-         </div>
-         <footer class="env-modal-dialog__footer env-modal-dialog__footer--right">
-            <button id="report-modal-btn-<%-dsid%>" type="button" data-modal-dialog-dismiss class="env-button env-button--primary">
-              <%= i18n('send') %>
-            </button>
-            <button type="button" data-modal-dialog-dismiss class="env-button env-button--link">
-              <%= i18n('cancel') %>
-            </button>
-         </footer>
+        <header class="env-modal-dialog__header">
+          <h5 class="env-text env-modal-dialog__header__title">
+            <%= i18n('reportItem') %>
+          </h5>
+        </header>
+        <div class="env-modal-dialog__body">
+          <p class="env-text">
+            <textarea
+              id="report-modal-text-<%-dsid%>"
+              name="reportText"
+              placeholder="<%= i18n('reportItemText') %>"
+              rows="4"
+              cols="50"
+            ></textarea>
+          </p>
+        </div>
+        <footer
+          class="env-modal-dialog__footer env-modal-dialog__footer--right"
+        >
+          <button
+            id="report-modal-btn-<%-dsid%>"
+            type="button"
+            data-modal-dialog-dismiss
+            class="env-button env-button--primary"
+          >
+            <%= i18n('send') %>
+          </button>
+          <button
+            type="button"
+            data-modal-dialog-dismiss
+            class="env-button env-button--link"
+          >
+            <%= i18n('cancel') %>
+          </button>
+        </footer>
       </section>
-   </div>
-</div>
+    </div>
+  </div>
+</li>
