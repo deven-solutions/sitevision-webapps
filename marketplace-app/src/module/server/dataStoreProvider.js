@@ -35,7 +35,7 @@ define(function (require) {
           result = items.find("*");
         }
         const data = result.toArray();
-        data.forEach((item) => (item.id = item.dsid)); // ListCompontent
+        data.forEach((item) => (item.id = item.dsid)); // Required by ListComponent
         return data;
       } catch (e) {
         logUtil.error(e);
