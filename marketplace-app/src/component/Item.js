@@ -5,6 +5,7 @@ define(function (require) {
   const template = require("/template/item");
   const requester = require("requester");
   const router = require("router");
+  const i18n = require("i18n");
 
   return Component.extend({
     template,
@@ -14,10 +15,8 @@ define(function (require) {
         "report-modal-btn-" + this.state.id
       );
       modalBtn.addEventListener("click", () => {
-        const subjectPart1 = document.getElementById("i18-mailSubjectPart1")
-          .textContent;
-        const subjectPart2 = document.getElementById("i18-mailSubjectPart2")
-          .textContent;
+        const subjectPart1 = i18n.get("mailSubjectPart1");
+        const subjectPart2 = i18n.get("mailSubjectPart2");
         const text = document.getElementById(
           "report-modal-text-" + this.state.id
         ).value;
@@ -31,7 +30,7 @@ define(function (require) {
           })
           .done((res) => {
             if (!res.mailSent) {
-              alert(document.getElementById("i18-mailNotSent").textContent);
+              alert(i18n.get("mailNotSent"));
             }
           });
       });
