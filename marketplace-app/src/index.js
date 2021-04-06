@@ -7,7 +7,7 @@
   const properties = require("Properties");
   const appData = require("appData");
   const mailBuilder = require("MailBuilder");
-  const logUtil = require("LogUtil");
+  const trashcanUtil = require("TrashcanUtil");
   const resourceLocatorUtil = require('ResourceLocatorUtil');
   const imageUtil = require('ImageUtil');
   const imageRenderer = require('ImageRenderer');
@@ -97,9 +97,11 @@
   });
 
   router.post("/remove", (req, res) => {
-    const dsid = req.params.dsid;
-    if (hasWriteAccess(dsid)) {
-      dataStoreProvider.removeItem(dsid);
+    const itemId = req.params.dsid;
+    if (hasWriteAccess(itemId)) {
+      const item = dataStoreProvider.getItem(itemId);
+      dataStoreProvider.removeItem(itemId);
+      removeImage(item.imageId);
     }
     renderUserItems(res);
   });
@@ -126,24 +128,27 @@
     const itemId = req.params.id;
     if (hasWriteAccess(itemId)) {
       const item = dataStoreProvider.getItem(itemId);
-      /* TODO Remove node.. UnsupportedRepositoryOperationException
-      const nodes = resourceLocatorUtil.getLocalImageRepository().getNodes();
-      while (nodes.hasNext()) {
-        const node = nodes.next();
-        if (node.getIdentifier() === item.imageId) {
-          node.remove();
-          logUtil.info("Image removed");
-          break;
-        }
-      }*/
+      const oldImageId = item.imageId;
       const file = req.file('file');
       const repository = resourceLocatorUtil.getLocalImageRepository();
       const image = imageUtil.createImageFromTemporary(repository, file);
       item.imageId = image.getIdentifier();
       dataStoreProvider.setItem(itemId, item);
+      removeImage(oldImageId);
     }
     renderUserItems(res);
  });
+
+  function removeImage(imageId) {
+    const nodes = resourceLocatorUtil.getLocalImageRepository().getNodes();
+    while (nodes.hasNext()) {
+      const node = nodes.next();
+      if (node.getIdentifier() === imageId) {
+        trashcanUtil.moveNodeToTrashcan(node);
+        break;
+      }
+    }
+  }
 
   function renderItemImages(items) {
     items.forEach(item => {
