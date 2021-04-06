@@ -1,2 +1,13 @@
 <%= renderer.renderComponent('Menu') %>
 <%= renderer.renderComponent('UserItems') %>
+<% if (items && items.length > 0) {%>
+  <form class="env-form env-p-left--large" method="post" action="<%= getUrl('/removeAll') %>">
+    <div class="env-form-element">
+      <input
+        class="env-button env-button--small env-button--danger"
+        type="submit"
+        value="<%= i18n('removeAll') %>"
+      />
+    </div>
+  </form>
+  <% } %> 

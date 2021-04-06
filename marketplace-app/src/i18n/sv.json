@@ -35,5 +35,6 @@
    "upload": "Ladda upp",
    "enter": "Ange",
    "image": "Bild",
-   "changeImage": "Byt bild"
+   "changeImage": "Byt bild",
+   "removeAll": "Ta bort alla annonser"
 }

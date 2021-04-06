@@ -54,8 +54,8 @@ define(function (require) {
     },
     removeItem: (id) => {
       try {
-        const updatedItem = items.remove(id);
-        items.instantIndex(updatedItem.dsid);
+        const removedItem = items.remove(id);
+        items.instantIndex(removedItem.dsid);
       } catch (e) {
         logUtil.error(e);
       }

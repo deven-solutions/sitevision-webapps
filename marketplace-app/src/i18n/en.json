@@ -35,5 +35,6 @@
    "upload": "Upload",
    "enter": "Enter",
    "image": "Image",
-   "changeImage": "Change image"
+   "changeImage": "Change image",
+   "removeAll": "Remove all items"
 }

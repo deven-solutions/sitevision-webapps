@@ -106,6 +106,17 @@
     renderUserItems(res);
   });
 
+  router.post("/removeAll", (req, res) => {
+    const currentUser = portletContextUtil.getCurrentUser();
+    const userId = currentUser.getIdentifier();
+    const items = dataStoreProvider.getItems(userId);
+    items.forEach(item => {
+      dataStoreProvider.removeItem(item.dsid);
+      removeImage(item.imageId);
+    });
+    renderUserItems(res);
+  });
+
   router.post("/report", (req, res) => {
     const administratorEmail = appData.get("administratorEmail");
     var mail = mailBuilder
