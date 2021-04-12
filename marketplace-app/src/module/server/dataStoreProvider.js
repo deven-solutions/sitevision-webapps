@@ -7,7 +7,6 @@ define(function (require) {
   const logUtil = require("LogUtil");
   const appData = require("appData");
   const portletContextUtil = require("PortletContextUtil");
-  const appService = require("/module/server/appService");
 
   return {
     getContactInfo(userId) {
@@ -27,21 +26,18 @@ define(function (require) {
     getItems: (filterByUserId) => {
       const itemsLimit = Number(appData.get("itemsLimit"));
       const pageId = portletContextUtil.getCurrentPage().getIdentifier();
-      const titleClass = appService.getFontClassName("fontTitle");
       try {
         let result;
         const pageQuery = "ds.analyzed.pageId:" + pageId;
         if (filterByUserId) {
-          result = items.find(pageQuery + " AND ds.analyzed.userId:" + filterByUserId, itemsLimit);
+          result = items.find(
+            pageQuery + " AND ds.analyzed.userId:" + filterByUserId,
+            itemsLimit
+          );
         } else {
           result = items.find(pageQuery);
         }
-        const data = result.toArray();
-        data.forEach(item => {
-          item.id = item.dsid; // Required by ListComponent
-          item.titleClass = titleClass;
-        }); 
-        return data;
+        return result.toArray();
       } catch (e) {
         logUtil.error(e);
       }
