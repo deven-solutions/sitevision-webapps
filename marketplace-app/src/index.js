@@ -49,7 +49,7 @@
   });
 
   router.post("/edit", (req, res) => {
-    const itemId = req.params.dsid;
+    const itemId = req.params.id;
     if (appService.hasWriteAccess(itemId)) {
       const params = req.params;
       appService.setItem(
@@ -66,7 +66,7 @@
   });
 
   router.post("/remove", (req, res) => {
-    const itemId = req.params.dsid;
+    const itemId = req.params.id;
     if (appService.hasWriteAccess(itemId)) {
       appService.removeItem(itemId);
     }
