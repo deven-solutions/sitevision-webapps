@@ -7,7 +7,7 @@ define(function (require) {
   const logUtil = require("LogUtil");
   const appData = require("appData");
   const portletContextUtil = require("PortletContextUtil");
-  const appUtil = require("/module/server/appUtil");
+  const appService = require("/module/server/appService");
 
   return {
     getContactInfo(userId) {
@@ -27,7 +27,7 @@ define(function (require) {
     getItems: (filterByUserId) => {
       const itemsLimit = Number(appData.get("itemsLimit"));
       const pageId = portletContextUtil.getCurrentPage().getIdentifier();
-      const titleClass = appUtil.getFontClassName("fontTitle");
+      const titleClass = appService.getFontClassName("fontTitle");
       try {
         let result;
         const pageQuery = "ds.analyzed.pageId:" + pageId;

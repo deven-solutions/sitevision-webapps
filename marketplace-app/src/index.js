@@ -9,12 +9,11 @@
   const mailBuilder = require("MailBuilder");
   const resourceLocatorUtil = require('ResourceLocatorUtil');
   const imageUtil = require('ImageUtil');
-  
-  const appUtil = require("/module/server/appUtil");
+  const appService = require("/module/server/appService");
 
   router.get("/", (req, res) => {
     const items = dataStoreProvider.getItems();
-    appUtil.renderItemImages(items);
+    appService.renderItemImages(items);
     res.render("/", {
       items: items
     });
@@ -38,7 +37,7 @@
     const currentUser = portletContextUtil.getCurrentUser();
     const userId = currentUser.getIdentifier();
     const itemsLimit = appData.get("itemsLimit");
-    const userItems = getUserItems();
+    const userItems = appService.getUserItems();
     if (userItems.length < itemsLimit) {
       const contactInfo = {
         email: req.params.email,
@@ -66,9 +65,9 @@
   });
 
   router.get("/edit", (req, res) => {
-    if (hasWriteAccess(req.params.id)) {
+    if (appService.hasWriteAccess(req.params.id)) {
       const item = dataStoreProvider.getItem(req.params.id);
-      appUtil.renderItemImages([item]);
+      appService.renderItemImages([item]);
       res.render("/edit", {
         item: item
       });
@@ -76,7 +75,7 @@
   });
 
   router.post("/edit", (req, res) => {
-    if (hasWriteAccess(req.params.dsid)) {
+    if (appService.hasWriteAccess(req.params.dsid)) {
       const item = {
         title: req.params.title,
         description: req.params.description,
@@ -97,10 +96,10 @@
 
   router.post("/remove", (req, res) => {
     const itemId = req.params.dsid;
-    if (hasWriteAccess(itemId)) {
+    if (appService.hasWriteAccess(itemId)) {
       const item = dataStoreProvider.getItem(itemId);
       dataStoreProvider.removeItem(itemId);
-      appUtil.removeImage(item.imageId);
+      appService.removeImage(item.imageId);
     }
     renderUserItems(res);
   });
@@ -111,7 +110,7 @@
     const items = dataStoreProvider.getItems(userId);
     items.forEach(item => {
       dataStoreProvider.removeItem(item.dsid);
-      appUtil.removeImage(item.imageId);
+      appService.removeImage(item.imageId);
     });
     renderUserItems(res);
   });
@@ -136,7 +135,7 @@
 
   router.post('/upload/:id', (req, res) => {
     const itemId = req.params.id;
-    if (hasWriteAccess(itemId)) {
+    if (appService.hasWriteAccess(itemId)) {
       const item = dataStoreProvider.getItem(itemId);
       const oldImageId = item.imageId;
       const file = req.file('file');
@@ -144,29 +143,15 @@
       const image = imageUtil.createImageFromTemporary(repository, file);
       item.imageId = image.getIdentifier();
       dataStoreProvider.setItem(itemId, item);
-      appUtil.removeImage(oldImageId);
+      appService.removeImage(oldImageId);
     }
     renderUserItems(res);
- });
+  });
  
   function renderUserItems(res) {
     res.render("/userItems", {
-      items: getUserItems(),
+      items: appService.getUserItems(),
     });
   }
 
-  function getUserItems() {
-    const currentUser = portletContextUtil.getCurrentUser();
-    const userId = currentUser.getIdentifier();
-    const items = dataStoreProvider.getItems(userId);
-    appUtil.renderItemImages(items);
-    return items;
-  }
-
-  function hasWriteAccess(itemId) {
-    const item = dataStoreProvider.getItem(itemId);
-    const currentUser = portletContextUtil.getCurrentUser();
-    const userId = currentUser.getIdentifier();
-    return item.userId === userId;
-  }
 })();

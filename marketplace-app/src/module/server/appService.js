@@ -9,6 +9,8 @@ define(function (require) {
   const trashcanUtil = require("TrashcanUtil");
   const imageRenderer = require('ImageRenderer');
   const utils = require('Utils');
+  const portletContextUtil = require("PortletContextUtil");
+  const dataStoreProvider = require("/module/server/dataStoreProvider");
 
   function getNodeProperty(parentNode, nodeId, propertyName) {
     return whenNodeId(parentNode, nodeId, node => properties.get(node, propertyName));
@@ -25,6 +27,19 @@ define(function (require) {
   }
 
   return {
+    hasWriteAccess(itemId) {
+      const item = dataStoreProvider.getItem(itemId);
+      const currentUser = portletContextUtil.getCurrentUser();
+      const userId = currentUser.getIdentifier();
+      return item.userId === userId;
+    },
+    getUserItems() {
+      const currentUser = portletContextUtil.getCurrentUser();
+      const userId = currentUser.getIdentifier();
+      const items = dataStoreProvider.getItems(userId);
+      this.renderItemImages(items);
+      return items;
+    },
     renderItemImages(items) {
       items.forEach(item => {
         const imageRepository = resourceLocatorUtil.getLocalImageRepository();
