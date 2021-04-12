@@ -23,15 +23,15 @@ define(function (require) {
         logUtil.error(e);
       }
     },
-    getItems: (filterByUserId) => {
+    getItems: (userIdFilter) => {
       const itemsLimit = Number(appData.get("itemsLimit"));
       const pageId = portletContextUtil.getCurrentPage().getIdentifier();
       try {
         let result;
         const pageQuery = "ds.analyzed.pageId:" + pageId;
-        if (filterByUserId) {
+        if (userIdFilter) {
           result = items.find(
-            pageQuery + " AND ds.analyzed.userId:" + filterByUserId,
+            pageQuery + " AND ds.analyzed.userId:" + userIdFilter,
             itemsLimit
           );
         } else {
