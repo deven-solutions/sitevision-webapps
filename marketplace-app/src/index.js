@@ -9,13 +9,12 @@
   const mailBuilder = require("MailBuilder");
   const resourceLocatorUtil = require('ResourceLocatorUtil');
   const imageUtil = require('ImageUtil');
-  const imageRenderer = require('ImageRenderer');
-  const utils = require('Utils');
+  
   const appUtil = require("/module/server/appUtil");
 
   router.get("/", (req, res) => {
     const items = dataStoreProvider.getItems();
-    renderItemImages(items);
+    appUtil.renderItemImages(items);
     res.render("/", {
       items: items
     });
@@ -69,7 +68,7 @@
   router.get("/edit", (req, res) => {
     if (hasWriteAccess(req.params.id)) {
       const item = dataStoreProvider.getItem(req.params.id);
-      renderItemImages([item]);
+      appUtil.renderItemImages([item]);
       res.render("/edit", {
         item: item
       });
@@ -149,28 +148,7 @@
     }
     renderUserItems(res);
  });
-
-  function renderItemImages(items) {
-    items.forEach(item => {
-      const nodes = resourceLocatorUtil.getLocalImageRepository().getNodes();
-      while (nodes.hasNext()) {
-        const node = nodes.next();
-        if (node.getIdentifier() === item.imageId) {
-          const imageScaler = utils.getImageScaler(200, 200);
-          imageRenderer.setImageScaler(imageScaler);
-          imageRenderer.clearSourceSetMode();
-          imageRenderer.update(node);
-          imageRenderer.forceUseImageScaler();
-          item.image = imageRenderer.render();
-          break;
-        }
-      }
-      if (!item.image) { // Default image
-        item.image = "<img src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' width='200' height='200' alt='' />";
-      }
-    });
-  }
-
+ 
   function renderUserItems(res) {
     res.render("/userItems", {
       items: getUserItems(),
@@ -181,12 +159,12 @@
     const currentUser = portletContextUtil.getCurrentUser();
     const userId = currentUser.getIdentifier();
     const items = dataStoreProvider.getItems(userId);
-    renderItemImages(items);
+    appUtil.renderItemImages(items);
     return items;
   }
 
-  function hasWriteAccess(id) {
-    const item = dataStoreProvider.getItem(id);
+  function hasWriteAccess(itemId) {
+    const item = dataStoreProvider.getItem(itemId);
     const currentUser = portletContextUtil.getCurrentUser();
     const userId = currentUser.getIdentifier();
     return item.userId === userId;
