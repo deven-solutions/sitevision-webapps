@@ -6,28 +6,34 @@ define(function (require) {
   const resourceLocatorUtil = require('ResourceLocatorUtil');
   const outputUtil = require('OutputUtil');
   const properties = require("Properties");
+  const trashcanUtil = require("TrashcanUtil");
 
+  function getNodeProperty(parentNode, nodeId, propertyName) {
+    return whenNodeId(parentNode, nodeId, node => properties.get(node, propertyName));
+  }
+
+  function whenNodeId(parentNode, id, callback) {
+    const nodes = parentNode.getNodes();
+    while (nodes.hasNext()) {
+      const node = nodes.next();
+      if (node.getIdentifier() === id) {
+        return callback(node);
+      }
+    }
+  }
 
   return {
-    logNode(prefix, node) {
-      logUtil.info(prefix + ' ' + outputUtil.getNodeInfoAsHTML(node));
+    removeImage(imageId) {
+      const imageRepository = resourceLocatorUtil.getLocalImageRepository();
+      whenNodeId(imageRepository, imageId, node => trashcanUtil.moveNodeToTrashcan(node));
     },
     getFontClassName(configProperty) {
       const fontTitleId = appData.get(configProperty);
       const repository = resourceLocatorUtil.getFontRepository();
-      return this.getNodeProperty(repository, fontTitleId, "selectorText");
+      return getNodeProperty(repository, fontTitleId, "selectorText");
     },
-    getNodeProperty(parentNode, nodeId, propertyName) {
-      return this.whenNodeId(parentNode, nodeId, node => properties.get(node, propertyName));
-    },
-    whenNodeId(parentNode, id, callback) {
-      const nodes = parentNode.getNodes();
-      while (nodes.hasNext()) {
-        const node = nodes.next();
-        if (node.getIdentifier() === id) {
-          return callback(node);
-        }
-      }
+    logNode(prefix, node) {
+      logUtil.info(prefix + ' ' + outputUtil.getNodeInfoAsHTML(node));
     }
   };
 });

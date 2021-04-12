@@ -7,11 +7,11 @@
   const properties = require("Properties");
   const appData = require("appData");
   const mailBuilder = require("MailBuilder");
-  const trashcanUtil = require("TrashcanUtil");
   const resourceLocatorUtil = require('ResourceLocatorUtil');
   const imageUtil = require('ImageUtil');
   const imageRenderer = require('ImageRenderer');
   const utils = require('Utils');
+  const appUtil = require("/module/server/appUtil");
 
   router.get("/", (req, res) => {
     const items = dataStoreProvider.getItems();
@@ -101,7 +101,7 @@
     if (hasWriteAccess(itemId)) {
       const item = dataStoreProvider.getItem(itemId);
       dataStoreProvider.removeItem(itemId);
-      removeImage(item.imageId);
+      appUtil.removeImage(item.imageId);
     }
     renderUserItems(res);
   });
@@ -112,7 +112,7 @@
     const items = dataStoreProvider.getItems(userId);
     items.forEach(item => {
       dataStoreProvider.removeItem(item.dsid);
-      removeImage(item.imageId);
+      appUtil.removeImage(item.imageId);
     });
     renderUserItems(res);
   });
@@ -145,21 +145,10 @@
       const image = imageUtil.createImageFromTemporary(repository, file);
       item.imageId = image.getIdentifier();
       dataStoreProvider.setItem(itemId, item);
-      removeImage(oldImageId);
+      appUtil.removeImage(oldImageId);
     }
     renderUserItems(res);
  });
-
-  function removeImage(imageId) {
-    const nodes = resourceLocatorUtil.getLocalImageRepository().getNodes();
-    while (nodes.hasNext()) {
-      const node = nodes.next();
-      if (node.getIdentifier() === imageId) {
-        trashcanUtil.moveNodeToTrashcan(node);
-        break;
-      }
-    }
-  }
 
   function renderItemImages(items) {
     items.forEach(item => {
