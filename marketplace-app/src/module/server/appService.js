@@ -63,11 +63,6 @@ define(function (require) {
         imageRenderer.forceUseImageScaler();
         item.image = imageRenderer.render();
       });
-      if (!item.image) {
-        // Default image if missing
-        item.image =
-          "<img src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' width='200' height='200' alt='' />";
-      }
     });
   }
 
@@ -142,6 +137,7 @@ define(function (require) {
         userId: userId,
         contactInfo: contactInfo,
         imageId: imageId,
+        image: ""
       };
       dataStoreProvider.createItem(item);
     },
