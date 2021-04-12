@@ -36,5 +36,7 @@
    "enter": "Ange",
    "image": "Bild",
    "changeImage": "Byt bild",
-   "removeAll": "Ta bort alla annonser"
+   "removeAll": "Ta bort alla annonser",
+   "style": "Utseende",
+   "fontTitle": "Formatmall för annonstitel"
 }

@@ -36,5 +36,7 @@
    "enter": "Enter",
    "image": "Image",
    "changeImage": "Change image",
-   "removeAll": "Remove all items"
+   "removeAll": "Remove all items",
+   "style": "Style",
+   "fontTitle": "Item title font"
 }

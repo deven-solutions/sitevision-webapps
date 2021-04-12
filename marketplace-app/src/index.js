@@ -17,7 +17,7 @@
     const items = dataStoreProvider.getItems();
     renderItemImages(items);
     res.render("/", {
-      items: items,
+      items: items
     });
   });
 
