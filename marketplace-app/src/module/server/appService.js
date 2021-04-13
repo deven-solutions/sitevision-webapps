@@ -14,22 +14,6 @@ define(function (require) {
   const imageUtil = require("ImageUtil");
   const mailBuilder = require("MailBuilder");
 
-  function getNodeProperty(parentNode, nodeId, propertyName) {
-    return whenNodeId(parentNode, nodeId, (node) =>
-      properties.get(node, propertyName)
-    );
-  }
-
-  function whenNodeId(parentNode, id, callback) {
-    const nodes = parentNode.getNodes();
-    while (nodes.hasNext()) {
-      const node = nodes.next();
-      if (node.getIdentifier() === id) {
-        return callback(node);
-      }
-    }
-  }
-
   function getCurrentUserId() {
     const currentUser = portletContextUtil.getCurrentUser();
     return currentUser.getIdentifier();
@@ -54,29 +38,25 @@ define(function (require) {
 
   function renderItemImages(items) {
     items.forEach((item) => {
-      const imageRepository = resourceLocatorUtil.getLocalImageRepository();
-      whenNodeId(imageRepository, item.imageId, (node) => {
-        const imageScaler = utils.getImageScaler(200, 200);
-        imageRenderer.setImageScaler(imageScaler);
-        imageRenderer.clearSourceSetMode();
-        imageRenderer.update(node);
-        imageRenderer.forceUseImageScaler();
-        item.image = imageRenderer.render();
-      });
+      const node = resourceLocatorUtil.getNodeByIdentifier(item.imageId);
+      const imageScaler = utils.getImageScaler(200, 200);
+      imageRenderer.setImageScaler(imageScaler);
+      imageRenderer.clearSourceSetMode();
+      imageRenderer.update(node);
+      imageRenderer.forceUseImageScaler();
+      item.image = imageRenderer.render();
     });
   }
 
   function removeImage(imageId) {
-    const imageRepository = resourceLocatorUtil.getLocalImageRepository();
-    whenNodeId(imageRepository, imageId, (node) =>
-      trashcanUtil.moveNodeToTrashcan(node)
-    );
+    const node = resourceLocatorUtil.getNodeByIdentifier(imageId);
+    trashcanUtil.moveNodeToTrashcan(node);
   }
 
   function getFontClassName(configProperty) {
     const fontTitleId = appData.get(configProperty);
-    const repository = resourceLocatorUtil.getFontRepository();
-    return getNodeProperty(repository, fontTitleId, "selectorText");
+    const node = resourceLocatorUtil.getNodeByIdentifier(fontTitleId);
+    return properties.get(node, "selectorText");
   }
 
   return {
