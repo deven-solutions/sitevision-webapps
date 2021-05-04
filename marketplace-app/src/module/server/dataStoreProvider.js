@@ -4,7 +4,6 @@ define(function (require) {
   const storage = require("storage");
   const items = storage.getCollectionDataStore("marketplace_items");
   const contacts = storage.getKeyValueDataStore("marketplace_contactinfo");
-  const logUtil = require("LogUtil");
   const appData = require("appData");
   const portletContextUtil = require("PortletContextUtil");
 
@@ -13,14 +12,14 @@ define(function (require) {
       try {
         return contacts.get(userId);
       } catch (e) {
-        logUtil.error(e);
+        console.error(e);
       }
     },
     setContactInfo(userId, contactInfo) {
       try {
         contacts.put(userId, contactInfo);
       } catch (e) {
-        logUtil.error(e);
+        console.error(e);
       }
     },
     getItems: (userIdFilter) => {
@@ -39,7 +38,7 @@ define(function (require) {
         }
         return result.toArray();
       } catch (e) {
-        logUtil.error(e);
+        console.error(e);
       }
     },
     setItem: (id, item) => {
@@ -50,7 +49,7 @@ define(function (require) {
         items.instantIndex(updatedItem.dsid);
         return updatedItem;
       } catch (e) {
-        logUtil.error(e);
+        console.error(e);
       }
     },
     removeItem: (id) => {
@@ -58,7 +57,7 @@ define(function (require) {
         const removedItem = items.remove(id);
         items.instantIndex(removedItem.dsid);
       } catch (e) {
-        logUtil.error(e);
+        console.error(e);
       }
     },
     createItem: (item) => {
@@ -69,7 +68,7 @@ define(function (require) {
         items.instantIndex(data.dsid);
         return data.dsid;
       } catch (e) {
-        logUtil.error(e);
+        console.error(e);
       }
     },
     getItem: (id) => {
@@ -77,7 +76,7 @@ define(function (require) {
         const item = items.get(id);
         return item;
       } catch (e) {
-        logUtil.error(e);
+        console.error(e);
       }
     },
   };

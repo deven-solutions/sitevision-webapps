@@ -1,7 +1,6 @@
 define(function (require) {
   "use strict";
 
-  const logUtil = require("LogUtil");
   const appData = require("appData");
   const resourceLocatorUtil = require("ResourceLocatorUtil");
   const outputUtil = require("OutputUtil");
@@ -154,7 +153,7 @@ define(function (require) {
       return items;
     },
     logNode(prefix, node) {
-      logUtil.info(prefix + " " + outputUtil.getNodeInfoAsHTML(node));
+      console.info(prefix + " " + outputUtil.getNodeInfoAsHTML(node));
     },
   };
 });
