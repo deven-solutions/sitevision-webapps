@@ -83,8 +83,7 @@ export const itemsLimitNotExceeded = () => {
   const userId = getCurrentUserId();
   const itemsLimit = appData.get("itemsLimit");
   const items = dataStoreProvider.getItems(userId);
-  //return items.length < itemsLimit; TODO items är null??
-  return true;
+  return items.length < itemsLimit;
 }
 
 export const getContactInfo = () => {
