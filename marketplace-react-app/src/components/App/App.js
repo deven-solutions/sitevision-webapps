@@ -2,33 +2,34 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './App.scss';
 import CreateTab from '../CreateTab';
+import Menu from '../Menu';
 
-const App = ({ message, name, testDefault }) => {
+const App = ({ name }) => {
+
+  const [activeTab, setActiveTab] = React.useState(0)
+
+  const updateActiveTab = activeTab => {
+    setActiveTab(activeTab)
+  }
+
   return (
     <>
-      <div style={appStyle} className={styles.container}>
+      {/*<div className={styles.container}>
         <p className={styles.text}>
-          {message} {name} {testDefault}
+          {name}
         </p>
-      </div>
-      <CreateTab/>
-    </> // Samma som </div>
+      </div>*/}
+      <Menu updateActiveTab={updateActiveTab}/>
+      { activeTab == 0 ? <h2>Visa alla annonser...</h2> : null }
+      { activeTab == 1 ? <h2>Visa mina annonser..</h2> : null }
+      { activeTab == 2 ? <CreateTab/> : null }
+    </>
   );
 };
 
 App.propTypes = {
   message: PropTypes.string,
-  name: PropTypes.string,
-  testDefault: PropTypes.string
+  name: PropTypes.string
 };
 
-App.defaultProps = {
-  testDefault: 'defaultvalue..'
-}
-
-// Bara för att testa, ej rekommenderat
-const appStyle = {
-  backgroundColor: '#CCC'
-}
- 
 export default App;

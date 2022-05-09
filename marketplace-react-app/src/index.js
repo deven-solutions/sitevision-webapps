@@ -23,11 +23,9 @@ import * as appService from './utils/appService';
 
 
 router.get('/', (req, res) => {
-  const message = 'Hello, world!';
   const name = appData.get('name');
 
-  res.agnosticRender(renderToString(<App message={message} name={name} />), {
-    message,
+  res.agnosticRender(renderToString(<App name={name} />), {
     name,
   });
 });

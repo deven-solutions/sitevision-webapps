@@ -1,39 +1,9 @@
 import * as React from 'react'
 import router from '@sitevision/api/common/router'
 import requester from '@sitevision/api/client/requester'
-import toasts from '@sitevision/api/client/toasts'
-
-
 import i18n from '@sitevision/api/common/i18n';
 
 const CreateTab = () => {
-
-  /*const moreInfo = () => {
-    // send request to the /published route
-    requester
-      .doGet({
-        url: router.getStandaloneUrl("/published"),
-      })
-      .then(({ date }) => {
-        // Display date in a toast
-        toasts.publish({
-          ttl: 5,
-          message: `Last published ${date}`,
-        });
-      });
-  };
-
-  return (
-    <>
-      <div className="env-text-h4">{title}</div>
-      <button
-        onClick={moreInfo}
-        className="env-button env-button--primary env-button--large"
-      >
-        Latest publish
-      </button>
-    </>
-  )*/
 
   const form = React.useRef(null)
   
@@ -46,12 +16,8 @@ const CreateTab = () => {
         data: data,
         fileUpload: true
       })
-      .then(({ fileInfo }) => {
-        // Display date in a toast
-        toasts.publish({
-          ttl: 5,
-          message: `Last published ${fileInfo}`,
-        });
+      .then(() => {
+        // TODO clean form
       });
   };
 
