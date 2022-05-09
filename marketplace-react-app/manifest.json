@@ -1,0 +1,17 @@
+{
+  "id": "marketplace-react-app",
+  "version": "0.0.1",
+  "name": "Annonsplats react",
+  "author": "Sitevision AB",
+  "description": "Annonsplats react",
+  "helpUrl": "https://developer.sitevision.se/webapps",
+  "type": "WebApp",
+  "bundled": true,
+  "requiredLibs": {
+    "react": "17.0.2"
+  },
+  "storage": {
+    "collectionDataStore": "marketplace_items",
+    "keyValueDataStore": "marketplace_contactinfo"
+  }  
+}
