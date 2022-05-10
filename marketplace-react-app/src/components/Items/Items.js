@@ -7,6 +7,24 @@ const Items = () => {
 
   const [items, setItems] = React.useState([])
 
+  const handleReport = (item) => {
+    const subjectPart1 = i18n.get("mailSubjectPart1");
+    const subjectPart2 = i18n.get("mailSubjectPart2");
+    requester
+      .doPost({
+        url: router.getUrl("/report"),
+        data: {
+          subject: subjectPart1 + item.title + subjectPart2,
+          text: item.report
+        }
+      })
+      .done((res) => {
+        if (!res.mailSent) {
+          alert(i18n.get("mailNotSent"));
+        }
+      });
+  }
+
   React.useEffect(() => {
     requester
       .doGet({
@@ -104,6 +122,8 @@ const Items = () => {
                       placeholder={i18n.get('reportItemText')}
                       rows="4"
                       cols="50"
+                      value={item.report}
+                      onChange={(e) => item.report = e.target.value}
                     ></textarea>
                   </p>
                 </div>
@@ -115,6 +135,7 @@ const Items = () => {
                     type="button"
                     data-modal-dialog-dismiss
                     className="env-button env-button--primary"
+                    onClick={() => handleReport(item)}
                   >
                     {i18n.get('send')}
                   </button>

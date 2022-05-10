@@ -30,16 +30,27 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get("/contactInfo", (req, res) => {
-  res.json(appService.getContactInfo());
-});
-
+// First tab endpoints
 router.get("/items", (req, res) => {
   res.json(appService.getItems())
 });
 
+router.post("/report", (req, res) => {
+  const mailSent = appService.sendMailToAdmin(
+    req.params.subject,
+    req.params.text
+  );
+  res.json({ mailSent: mailSent });
+});
+
+// Second tab endpoints
 router.get("/userItems", (req, res) => {
   res.json(appService.getUserItems());
+});
+
+// Last tab endpoints
+router.get("/contactInfo", (req, res) => {
+  res.json(appService.getContactInfo());
 });
 
 router.post("/create", (req, res) => {
