@@ -7,6 +7,10 @@ const Items = () => {
 
   const [items, setItems] = React.useState([])
 
+  const handleReportChange = (dsid, report) => {
+    setItems(items.map((item) => item.dsid === dsid ? { ...item, report: report} : item));
+  }
+
   const handleReport = (item) => {
     const subjectPart1 = i18n.get("mailSubjectPart1");
     const subjectPart2 = i18n.get("mailSubjectPart2");
@@ -23,6 +27,7 @@ const Items = () => {
           alert(i18n.get("mailNotSent"));
         }
       });
+    handleReportChange(item.dsid, '');
   }
 
   React.useEffect(() => {
@@ -123,7 +128,7 @@ const Items = () => {
                       rows="4"
                       cols="50"
                       value={item.report}
-                      onChange={(e) => item.report = e.target.value}
+                      onChange={(e) => handleReportChange(item.dsid, e.target.value)}
                     ></textarea>
                   </p>
                 </div>
