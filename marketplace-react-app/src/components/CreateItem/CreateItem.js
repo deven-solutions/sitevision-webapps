@@ -16,8 +16,12 @@ const CreateItem = () => {
         data: data,
         fileUpload: true
       })
-      .then(() => {
-        // TODO clean form
+      .then((response) => {
+        if (response.error) {
+          alert(response.error)
+        } else {
+          form.current.reset()
+        }
       });
   };
 

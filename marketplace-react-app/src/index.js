@@ -66,9 +66,9 @@ router.post("/create", (req, res) => {
       params.phoneNumber,
       file
     );
-    //renderUserItems(res);
+    res.json({ error: '' });
   } else {
-    //res.render("/itemsLimitExceeded", {});
+    res.json({ error: 'itemsLimitExceeded' });
   }
 });
 
