@@ -21,9 +21,13 @@ const App = ({ name }) => {
         </p>
       </div>*/}
       <Menu updateActiveTab={updateActiveTab}/>
-      { activeTab == 0 ? <Items/> : null }
-      { activeTab == 1 ? <h2>Visa mina annonser..</h2> : null }
-      { activeTab == 2 ? <CreateItem/> : null }
+      {
+        {
+          0: <Items/>,
+          1: <h2>TODO Visa mina annonser..</h2>,
+          2: <CreateItem/>
+        }[activeTab]
+      }
     </>
   );
 };
