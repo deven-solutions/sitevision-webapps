@@ -48,6 +48,16 @@ router.get("/userItems", (req, res) => {
   res.json(appService.getUserItems());
 });
 
+router.delete("/userItems/:id", (req, res) => {
+  const itemId = req.params.id;
+  if (appService.hasWriteAccess(itemId)) {
+    appService.removeItem(itemId);
+    res.json({ error: '' });
+  } else {
+    res.json({ error: 'Access denied' });
+  }
+});
+
 // Last tab endpoints
 router.get("/contactInfo", (req, res) => {
   res.json(appService.getContactInfo());

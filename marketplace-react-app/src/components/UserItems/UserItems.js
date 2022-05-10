@@ -7,6 +7,20 @@ const UserItems = () => {
 
   const [items, setItems] = React.useState([])
 
+  const handleRemove = (dsid) => {
+    requester
+      .doDelete({
+        url: router.getStandaloneUrl(`/userItems/${dsid}`),
+      })
+      .then((response) => {
+        if (response.error) {
+          alert(response.error)
+        } else {
+          setItems(items.filter((item) => item.dsid !== dsid))
+        }
+      })
+  }
+
   React.useEffect(() => {
     requester
       .doGet({
@@ -60,19 +74,14 @@ const UserItems = () => {
                     </a>
                   </li>
                   <li className="env-list__item">
-                    <form
-                      className="env-form"
-                      method="post"
-                      action="<%= getUrl('/remove', {id:dsid}) %>"
+                    <button
+                      type="button"
+                      className="env-button env-button--small env-button--danger"
+                      onClick={() => handleRemove(item.dsid)}
                     >
-                      <div className="env-form-element">
-                        <input
-                          className="env-button env-button--small env-button--danger"
-                          type="submit"
-                          value="<%= i18n('remove') %>"
-                        />
-                      </div>
-                    </form>
+                      {i18n.get('remove')}
+                    </button>
+                    
                   </li>
                 </ul>
               </footer>
