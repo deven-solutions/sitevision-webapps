@@ -1,11 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './App.scss';
 import CreateItem from '../CreateItem';
 import Items from '../Items';
 import Menu from '../Menu';
+import UserItems from '../UserItems';
 
-const App = ({ name }) => {
+const App = () => {
 
   const [activeTab, setActiveTab] = React.useState(0)
 
@@ -15,16 +15,11 @@ const App = ({ name }) => {
 
   return (
     <>
-      {/*<div className={styles.container}>
-        <p className={styles.text}>
-          {name}
-        </p>
-      </div>*/}
-      <Menu updateActiveTab={updateActiveTab}/>
+      <Menu activeTab={activeTab} updateActiveTab={updateActiveTab}/>
       {
         {
           0: <Items/>,
-          1: <h2>TODO Visa mina annonser..</h2>,
+          1: <UserItems/>,
           2: <CreateItem/>
         }[activeTab]
       }

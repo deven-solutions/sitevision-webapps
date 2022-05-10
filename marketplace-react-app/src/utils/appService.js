@@ -112,7 +112,7 @@ export const hasWriteAccess = (itemId) => {
 
 export const getUserItems = () => {
   const userId = getCurrentUserId();
-  const items = this.getItems(userId);
+  const items = getItems(userId);
   return items;
 }
 

@@ -4,7 +4,7 @@ import App from './components/App';
 
 export default (initialState, el) => {
   ReactDOM.hydrate(
-    <App name={initialState.name} />,
+    <App />,
     el
   );
 };
