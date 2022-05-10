@@ -12,7 +12,7 @@ const CreateItem = () => {
     const data = new FormData(form.current)
     requester
       .doPost({
-        url: router.getStandaloneUrl("/create"),
+        url: router.getStandaloneUrl("/userItems"),
         data: data,
         fileUpload: true
       })

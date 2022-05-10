@@ -63,7 +63,7 @@ router.get("/contactInfo", (req, res) => {
   res.json(appService.getContactInfo());
 });
 
-router.post("/create", (req, res) => {
+router.post("/userItems", (req, res) => {
   if (appService.itemsLimitNotExceeded()) {
     const params = req.params;
     const file = req.file("file");
