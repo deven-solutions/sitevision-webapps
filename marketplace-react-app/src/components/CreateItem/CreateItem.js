@@ -3,7 +3,7 @@ import router from '@sitevision/api/common/router'
 import requester from '@sitevision/api/client/requester'
 import i18n from '@sitevision/api/common/i18n';
 
-const CreateTab = () => {
+const CreateItem = () => {
 
   const form = React.useRef(null)
   
@@ -159,4 +159,4 @@ const CreateTab = () => {
   )
 }
 
-export default CreateTab;
+export default CreateItem;

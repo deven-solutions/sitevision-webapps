@@ -1,7 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './App.scss';
-import CreateTab from '../CreateTab';
+import CreateItem from '../CreateItem';
+import Items from '../Items';
 import Menu from '../Menu';
 
 const App = ({ name }) => {
@@ -20,9 +21,9 @@ const App = ({ name }) => {
         </p>
       </div>*/}
       <Menu updateActiveTab={updateActiveTab}/>
-      { activeTab == 0 ? <h2>Visa alla annonser...</h2> : null }
+      { activeTab == 0 ? <Items/> : null }
       { activeTab == 1 ? <h2>Visa mina annonser..</h2> : null }
-      { activeTab == 2 ? <CreateTab/> : null }
+      { activeTab == 2 ? <CreateItem/> : null }
     </>
   );
 };

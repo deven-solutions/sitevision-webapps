@@ -34,6 +34,14 @@ router.get("/contactInfo", (req, res) => {
   res.json(appService.getContactInfo());
 });
 
+router.get("/items", (req, res) => {
+  res.json(appService.getItems())
+});
+
+router.get("/userItems", (req, res) => {
+  res.json(appService.getUserItems());
+});
+
 router.post("/create", (req, res) => {
   if (appService.itemsLimitNotExceeded()) {
     const params = req.params;
