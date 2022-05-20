@@ -27,11 +27,16 @@ const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
       if (response.error) {
         alert(response.error)
       } else {
-        form.current.reset()
+        //form.current.reset()
         updateUserItem({})
         updateActiveTab(1)
       }
     })
+  };
+
+  const handleCancel = () => {
+    updateUserItem({})
+    updateActiveTab(1)
   };
 
   React.useEffect(() => {
@@ -179,6 +184,13 @@ const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
             type="submit"
             value={i18n.get('save')}
           />
+          <button
+            type="button"
+            className="env-button env-m-left--x-small"
+            onClick={() => handleCancel()}
+          >
+            {i18n.get('cancel')}
+          </button>
         </div>
       </form>
     </>

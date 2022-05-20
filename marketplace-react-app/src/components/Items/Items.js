@@ -66,7 +66,7 @@ const Items = () => {
                 <ul className="env-list env-list--horizontal env-list-dividers--left">
                   <li className="env-list__item">
                     <a
-                      className="env-button env-button--small"
+                      className="env-button env-button--slim"
                       href={"tel:" + item.contactInfo.phoneNumber}
                     >
                       <svg className="env-icon env-icon--small env-align--middle">
@@ -74,12 +74,12 @@ const Items = () => {
                           xlinkHref="/sitevision/envision-icons.svg#icon-phone"
                         ></use>
                       </svg>
-                      <span> {i18n.get('call')} </span>
+                      <span className='env-m-left--x-small'> {i18n.get('call')} </span>
                     </a>
                   </li>
                   <li className="env-list__item">
                     <a
-                      className="env-button env-button--small"
+                      className="env-button env-button--slim"
                       href={"mailto:" + item.contactInfo.email + "?subject" + item.title}
                     >
                       <svg className="env-icon env-icon--small env-align--middle">
@@ -87,7 +87,7 @@ const Items = () => {
                           xlinkHref="/sitevision/envision-icons.svg#icon-chat"
                         ></use>
                       </svg>
-                      <span> {i18n.get('sendEmail')} </span>
+                      <span className='env-m-left--x-small'> {i18n.get('sendEmail')} </span>
                     </a>
                   </li>
                   <li className="env-list__item">
@@ -95,7 +95,7 @@ const Items = () => {
                       data-modal-dialog
                       data-target={"#report-modal-" + item.dsid}
                       type="button"
-                      className="env-button env-button--small"
+                      className="env-button env-button--slim"
                     >
                       {i18n.get('report')}
                     </button>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import i18n from "@sitevision/api/common/i18n";
 import './Menu.scss';
 
-const Menu = ({activeTab, updateActiveTab}) => {
+const Menu = ({activeTab, updateActiveTab, userItem}) => {
 
   return (
     <>
@@ -28,7 +28,7 @@ const Menu = ({activeTab, updateActiveTab}) => {
             className={`env-nav__link ${activeTab === 2 ? 'env-nav__link--active' : ''}`}
             onClick={() => updateActiveTab(2)}
           >
-            {i18n.get("create")}
+            {userItem.dsid ? userItem.title : i18n.get("create")}
           </a>
         </li>
       </ul>

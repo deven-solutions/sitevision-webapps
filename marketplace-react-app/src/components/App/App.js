@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <>
-      <Menu activeTab={activeTab} updateActiveTab={updateActiveTab}/>
+      <Menu activeTab={activeTab} updateActiveTab={updateActiveTab} userItem={userItem}/>
       {
         {
           0: <Items/>,
