@@ -44,11 +44,11 @@ router.post("/report", (req, res) => {
 });
 
 // Second tab endpoints
-router.get("/userItems", (req, res) => {
+router.get("/user-items", (req, res) => {
   res.json(appService.getUserItems());
 });
 
-router.delete("/userItems/:id", (req, res) => {
+router.delete("/user-items/:id", (req, res) => {
   const itemId = req.params.id;
   if (appService.hasWriteAccess(itemId)) {
     appService.removeItem(itemId);
@@ -58,12 +58,17 @@ router.delete("/userItems/:id", (req, res) => {
   }
 });
 
+router.delete("/user-items", (req, res) => {
+  appService.removeUserItems();
+  res.json({ error: '' });
+});
+
 // Last tab endpoints
-router.get("/contactInfo", (req, res) => {
+router.get("/contact-info", (req, res) => {
   res.json(appService.getContactInfo());
 });
 
-router.post("/userItems", (req, res) => {
+router.post("/user-items", (req, res) => {
   if (appService.itemsLimitNotExceeded()) {
     const params = req.params;
     const file = req.file("file");
@@ -82,22 +87,25 @@ router.post("/userItems", (req, res) => {
   }
 });
 
-/*
-// Route to collect last publish
-router.get('/published', (req, res) => {
-  // Fetch current page and the last publish timestamp
-  const page = portletContextUtil.getCurrentPage();
-  const timestamp = properties.get(page, 'lastPublishDate');
-
-  // Format timestamp to human readable
-  const date = timestampUtil.format(
-     timestamp,
-     'MMMMM yyyy HH:mm:ss',
-     localeUtil.getLocaleByString('en')
-  );
-
-  // Send the date as JSON
-  res.json({
-     date,
-  });
-});*/
+router.put("/user-items/:id", (req, res) => {
+  const itemId = req.params.id;
+  if (appService.hasWriteAccess(itemId)) {
+    const params = req.params;
+    appService.setItem(
+      itemId,
+      params.title,
+      params.description,
+      params.price,
+      params.email,
+      params.name,
+      params.phoneNumber
+    )
+    const file = req.file("file");
+    if (file) {
+      appService.replaceImage(itemId, file);
+    }
+    res.json({ error: '' });
+  } else {
+    res.json({ error: 'hasWriteAccess' });
+  }
+});

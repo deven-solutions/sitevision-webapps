@@ -3,38 +3,51 @@ import router from '@sitevision/api/common/router'
 import requester from '@sitevision/api/client/requester'
 import i18n from '@sitevision/api/common/i18n';
 
-const CreateItem = () => {
+const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
 
   const form = React.useRef(null)
-  
+  const [imageRequired, setImageRequired] = React.useState(false)
+
+  const isNewItem = () => userItem.dsid === undefined
+
   const handleSubmit = e => {
     e.preventDefault()
-    const data = new FormData(form.current)
-    requester
-      .doPost({
-        url: router.getStandaloneUrl("/userItems"),
-        data: data,
-        fileUpload: true
-      })
-      .then((response) => {
-        if (response.error) {
-          alert(response.error)
-        } else {
-          form.current.reset()
-        }
-      });
+    const data = {
+      url: router.getStandaloneUrl("/user-items" + (isNewItem() ? "" : "/" + userItem.dsid)),
+      data: new FormData(form.current),
+      fileUpload: true
+    }
+    let promise
+    if (isNewItem()) {
+      promise = requester.doPost(data)
+    } else {
+      promise = requester.doPut(data)
+    }
+    promise.then((response) => {
+      if (response.error) {
+        alert(response.error)
+      } else {
+        form.current.reset()
+        updateUserItem({})
+        updateActiveTab(1)
+      }
+    })
   };
 
-  const [contactInfo, setContactInfo] = React.useState({})
-
   React.useEffect(() => {
-    requester
-      .doGet({
-        url: router.getStandaloneUrl("/contactInfo"),
-      })
-      .then((contactInfo) => {
-        setContactInfo(contactInfo)
-      })
+    if (isNewItem()) {
+      setImageRequired(true)
+      requester
+        .doGet({
+          url: router.getStandaloneUrl("/contact-info"),
+        })
+        .then((contactInfo) => {
+          updateUserItem({name: contactInfo.name, phoneNumber: contactInfo.phoneNumber, email: contactInfo.email})
+        })
+    } else {
+      setImageRequired(false)
+      updateUserItem({...userItem, name: userItem.contactInfo.name, phoneNumber: userItem.contactInfo.phoneNumber, email: userItem.contactInfo.email})
+    }
   }, [])
 
   return (
@@ -49,7 +62,7 @@ const CreateItem = () => {
             >{i18n.get('image')}
           </label>
           <div className="env-form-element__control">
-            <input id="file" type="file" name="file" accept="image/*" required/>
+            <input id="file" type="file" name="file" accept="image/*" required={imageRequired}/>
           </div>
         </div>
         <div className="env-form-element">
@@ -60,6 +73,8 @@ const CreateItem = () => {
             <input
               autoComplete="off"
               type="text"
+              value={userItem.title}
+              onChange={(e) => updateUserItem({...userItem, title: e.target.value})}
               className="env-form-input"
               placeholder={i18n.get('enter') + ' ' + i18n.get('title').toLowerCase()}
               name="title"
@@ -76,6 +91,8 @@ const CreateItem = () => {
             <input
               autoComplete="off"
               type="text"
+              value={userItem.description}
+              onChange={(e) => updateUserItem({...userItem, description: e.target.value})}
               placeholder={i18n.get('enter') + ' ' + i18n.get('description').toLowerCase()}
               className="env-form-input"
               name="description"
@@ -92,6 +109,8 @@ const CreateItem = () => {
             <input
               autoComplete="off"
               type="number"
+              value={userItem.price}
+              onChange={(e) => updateUserItem({...userItem, price: e.target.value})}
               placeholder={i18n.get('enter') + ' ' + i18n.get('price').toLowerCase()}
               className="env-form-input"
               name="price"
@@ -108,7 +127,8 @@ const CreateItem = () => {
             <input
               autoComplete="off"
               type="text"
-              value={contactInfo.name}
+              value={userItem.name}
+              onChange={(e) => updateUserItem({...userItem, name: e.target.value})}
               placeholder={i18n.get('enter') + ' ' + i18n.get('name').toLowerCase()}
               className="env-form-input"
               name="name"
@@ -125,7 +145,8 @@ const CreateItem = () => {
             <input
               autoComplete="off"
               type="number"
-              value={contactInfo.phoneNumber}
+              value={userItem.phoneNumber}
+              onChange={(e) => updateUserItem({...userItem, phoneNumber: e.target.value})}
               placeholder={i18n.get('enter') + ' ' + i18n.get('phoneNumber').toLowerCase()}
               className="env-form-input"
               name="phoneNumber"
@@ -142,7 +163,8 @@ const CreateItem = () => {
             <input
               autoComplete="off"
               type="email"
-              value={contactInfo.email}
+              value={userItem.email}
+              onChange={(e) => updateUserItem({...userItem, email: e.target.value})}
               placeholder={i18n.get('enter') + ' ' + i18n.get('email').toLowerCase()}
               className="env-form-input"
               name="email"

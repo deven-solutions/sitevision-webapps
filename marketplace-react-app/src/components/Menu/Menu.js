@@ -5,23 +5,19 @@ import './Menu.scss';
 
 const Menu = ({activeTab, updateActiveTab}) => {
 
-  const handleClick = (activeTab) => {
-    updateActiveTab(activeTab)
-  };
-
   return (
     <>
       <ul className="env-nav env-nav--menubar env-nav--border" role="menubar">
         <li className="env-nav__item" role="menuitem">
-          <a id="menu-root" className={`env-nav__link ${activeTab === 0 ? 'env-nav__link--active' : ''}`} onClick={() => handleClick(0)}>
+          <a id="menu-root" className={`env-nav__link ${activeTab === 0 ? 'env-nav__link--active' : ''}`} onClick={() => updateActiveTab(0)}>
             {i18n.get("latestItems")}
           </a>
         </li>
         <li className="env-nav__item" role="menuitem">
           <a
             id="menu-user-items"
-            className={`env-nav__link ${activeTab === 1? 'env-nav__link--active' : ''}`}
-            onClick={() => handleClick(1)}
+            className={`env-nav__link ${activeTab === 1 ? 'env-nav__link--active' : ''}`}
+            onClick={() => updateActiveTab(1)}
           >
             {i18n.get("userItems")}
           </a>
@@ -30,7 +26,7 @@ const Menu = ({activeTab, updateActiveTab}) => {
           <a
             id="menu-create"
             className={`env-nav__link ${activeTab === 2 ? 'env-nav__link--active' : ''}`}
-            onClick={() => handleClick(2)}
+            onClick={() => updateActiveTab(2)}
           >
             {i18n.get("create")}
           </a>

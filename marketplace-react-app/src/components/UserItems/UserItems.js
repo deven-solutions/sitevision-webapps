@@ -1,16 +1,22 @@
 import * as React from 'react'
 import router from '@sitevision/api/common/router'
 import requester from '@sitevision/api/client/requester'
-import i18n from '@sitevision/api/common/i18n';
+import i18n from '@sitevision/api/common/i18n'
+import cloneDeep from 'lodash/cloneDeep';
 
-const UserItems = () => {
+const UserItems = ({updateUserItem, updateActiveTab}) => {
 
   const [items, setItems] = React.useState([])
+
+  const handleEdit = (item) => {
+    updateUserItem(cloneDeep(item))
+    updateActiveTab(2)
+  }
 
   const handleRemove = (dsid) => {
     requester
       .doDelete({
-        url: router.getStandaloneUrl(`/userItems/${dsid}`),
+        url: router.getStandaloneUrl(`/user-items/${dsid}`),
       })
       .then((response) => {
         if (response.error) {
@@ -21,10 +27,24 @@ const UserItems = () => {
       })
   }
 
+  const handleRemoveAll = () => {
+    requester
+      .doDelete({
+        url: router.getStandaloneUrl(`/user-items`),
+      })
+      .then((response) => {
+        if (response.error) {
+          alert(response.error)
+        } else {
+          setItems([])
+        }
+      })
+  }
+
   React.useEffect(() => {
     requester
       .doGet({
-        url: router.getStandaloneUrl("/userItems"),
+        url: router.getStandaloneUrl("/user-items"),
       })
       .then((items) => {
         setItems(items)
@@ -58,20 +78,13 @@ const UserItems = () => {
               <footer className="env-comment__footer env-m-top--small">
                 <ul className="env-list env-list--horizontal env-list-dividers--left">
                   <li className="env-list__item">
-                    <a
+                    <button
+                      type="button"
                       className="env-button env-button--small env-button--primary"
-                      href="<%= getUrl('/upload/' + dsid) %>"
-                    >
-                      {i18n.get('changeImage')}
-                    </a>
-                  </li>
-                  <li className="env-list__item">
-                    <a
-                      className="env-button env-button--small env-button--primary"
-                      href="<%= getUrl('/edit', {id:dsid}) %>"
+                      onClick={() => handleEdit(item)}
                     >
                       {i18n.get('edit')}
-                    </a>
+                    </button>
                   </li>
                   <li className="env-list__item">
                     <button
@@ -81,16 +94,21 @@ const UserItems = () => {
                     >
                       {i18n.get('remove')}
                     </button>
-                    
                   </li>
                 </ul>
               </footer>
             </div>
           </article>
         </li>
-      
       )}
       </ul>
+      <button
+        type="button"
+        className="env-button env-button--small env-button--danger"
+        onClick={() => handleRemoveAll()}
+      >
+        {i18n.get('removeAll')}
+      </button>
     </>
   )
 }
