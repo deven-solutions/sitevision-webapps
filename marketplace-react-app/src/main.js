@@ -4,7 +4,7 @@ import App from './components/App';
 
 export default (initialState, el) => {
   ReactDOM.hydrate(
-    <App />,
+    <App isLoggedIn={initialState.isLoggedIn}/>,
     el
   );
 };

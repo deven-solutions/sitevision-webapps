@@ -1,32 +1,13 @@
-// Import needed utilities
-
-// react
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
-
-// router to set up routing
 import router from '@sitevision/api/common/router';
-
-// Component of the WebApp to render
 import App from './components/App';
-
-/* Public API utilities
-import portletContextUtil from '@sitevision/api/server/PortletContextUtil';
-import properties from '@sitevision/api/server/Properties';
-import timestampUtil from '@sitevision/api/server/TimestampUtil';
-import localeUtil from '@sitevision/api/server/LocaleUtil';*/
-
-
-import appData from '@sitevision/api/server/appData';
-
 import * as appService from './utils/appService';
 
-
 router.get('/', (req, res) => {
-  const name = appData.get('name');
-
-  res.agnosticRender(renderToString(<App name={name} />), {
-    name,
+  const isLoggedIn = appService.isLoggedIn()
+  res.agnosticRender(renderToString(<App isLoggedIn={isLoggedIn} />), {
+    isLoggedIn,
   });
 });
 

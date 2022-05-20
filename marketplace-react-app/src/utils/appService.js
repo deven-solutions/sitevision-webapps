@@ -120,6 +120,10 @@ export const logNode = (prefix, node) => {
   logUtil.info(prefix + " " + outputUtil.getNodeInfoAsHTML(node));
 }
 
+export const isLoggedIn = () => {
+  return portletContextUtil.getCurrentUser() != "Anonymous";
+}
+
 const getCurrentUserId = () => {
   const currentUser = portletContextUtil.getCurrentUser();
   return currentUser.getIdentifier();

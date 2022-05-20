@@ -42,7 +42,7 @@ const Items = () => {
 
   return (
     <>
-      <ul className='env-list env-list-dividers--top'>
+      <ul className='env-list'>
       {items.map((item) =>
         <li key={item.dsid} className="env-list__item env-p-around--large">
           <article className="env-comment env-media">
