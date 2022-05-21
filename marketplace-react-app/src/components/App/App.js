@@ -52,7 +52,7 @@ const App = ({ isLoggedIn }) => {
 App.propTypes = {
   message: PropTypes.string,
   name: PropTypes.string,
-  isLoggedIn: PropTypes.bool
+  isLoggedIn: PropTypes.bool,
 };
 
 export default App;

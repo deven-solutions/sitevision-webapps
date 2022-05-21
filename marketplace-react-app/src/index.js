@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { renderToString } from 'react-dom/server';
-import router from '@sitevision/api/common/router';
-import App from './components/App';
-import * as appService from './utils/appService';
+import * as React from "react";
+import { renderToString } from "react-dom/server";
+import router from "@sitevision/api/common/router";
+import App from "./components/App";
+import * as appService from "./utils/appService";
 
-router.get('/', (req, res) => {
-  const isLoggedIn = appService.isLoggedIn()
+router.get("/", (req, res) => {
+  const isLoggedIn = appService.isLoggedIn();
   res.agnosticRender(renderToString(<App isLoggedIn={isLoggedIn} />), {
     isLoggedIn,
   });
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 
 // First tab endpoints
 router.get("/items", (req, res) => {
-  res.json(appService.getItems())
+  res.json(appService.getItems());
 });
 
 router.post("/report", (req, res) => {
@@ -33,15 +33,15 @@ router.delete("/user-items/:id", (req, res) => {
   const itemId = req.params.id;
   if (appService.hasWriteAccess(itemId)) {
     appService.removeItem(itemId);
-    res.json({ error: '' });
+    res.json({ error: "" });
   } else {
-    res.json({ error: 'Access denied' });
+    res.json({ error: "Access denied" });
   }
 });
 
 router.delete("/user-items", (req, res) => {
   appService.removeUserItems();
-  res.json({ error: '' });
+  res.json({ error: "" });
 });
 
 // Last tab endpoints
@@ -62,9 +62,9 @@ router.post("/user-items", (req, res) => {
       params.phoneNumber,
       file
     );
-    res.json({ error: '' });
+    res.json({ error: "" });
   } else {
-    res.json({ error: 'itemsLimitExceeded' });
+    res.json({ error: "itemsLimitExceeded" });
   }
 });
 
@@ -80,13 +80,13 @@ router.put("/user-items/:id", (req, res) => {
       params.email,
       params.name,
       params.phoneNumber
-    )
+    );
     const file = req.file("file");
     if (file) {
       appService.replaceImage(itemId, file);
     }
-    res.json({ error: '' });
+    res.json({ error: "" });
   } else {
-    res.json({ error: 'hasWriteAccess' });
+    res.json({ error: "hasWriteAccess" });
   }
 });

@@ -1,7 +1,7 @@
-import storage from '@sitevision/api/server/storage';
-import appData from '@sitevision/api/server/appData';
-import portletContextUtil from '@sitevision/api/server/PortletContextUtil';
-import logUtil from '@sitevision/api/server/LogUtil';
+import storage from "@sitevision/api/server/storage";
+import appData from "@sitevision/api/server/appData";
+import portletContextUtil from "@sitevision/api/server/PortletContextUtil";
+import logUtil from "@sitevision/api/server/LogUtil";
 
 const items = storage.getCollectionDataStore("marketplace_items");
 const contacts = storage.getKeyValueDataStore("marketplace_contactinfo");
@@ -12,7 +12,7 @@ export const getContactInfo = (userId) => {
   } catch (e) {
     logUtil.error(e);
   }
-}
+};
 
 export const setContactInfo = (userId, contactInfo) => {
   try {
@@ -20,7 +20,7 @@ export const setContactInfo = (userId, contactInfo) => {
   } catch (e) {
     logUtil.error(e);
   }
-}
+};
 
 export const getItems = (userIdFilter) => {
   const itemsLimit = Number(appData.get("itemsLimit"));
@@ -40,7 +40,7 @@ export const getItems = (userIdFilter) => {
   } catch (e) {
     logUtil.error(e);
   }
-}
+};
 
 export const setItem = (id, item) => {
   try {
@@ -52,7 +52,7 @@ export const setItem = (id, item) => {
   } catch (e) {
     logUtil.error(e);
   }
-}
+};
 
 export const removeItem = (id) => {
   try {
@@ -61,7 +61,7 @@ export const removeItem = (id) => {
   } catch (e) {
     logUtil.error(e);
   }
-}
+};
 
 export const createItem = (item) => {
   try {
@@ -73,7 +73,7 @@ export const createItem = (item) => {
   } catch (e) {
     logUtil.error(e);
   }
-}
+};
 
 export const getItem = (id) => {
   try {
@@ -82,4 +82,4 @@ export const getItem = (id) => {
   } catch (e) {
     logUtil.error(e);
   }
-}
+};

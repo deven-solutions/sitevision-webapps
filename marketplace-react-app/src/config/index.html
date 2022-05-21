@@ -1,4 +1,3 @@
-
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"><%= i18n('settings') %></h3>
@@ -6,11 +5,23 @@
   <div class="panel-body">
     <div class="form-group">
       <label><%= i18n('administratorEmail') %></label>
-      <input class="form-control" type="email" value="<%- currentUserEmail %>" name="administratorEmail" required>
+      <input
+        class="form-control"
+        type="email"
+        value="<%- currentUserEmail %>"
+        name="administratorEmail"
+        required
+      />
     </div>
     <div class="form-group">
       <label><%= i18n('itemsLimit') %></label>
-      <input class="form-control" type="number" name="itemsLimit" min="1" required>
+      <input
+        class="form-control"
+        type="number"
+        name="itemsLimit"
+        min="1"
+        required
+      />
     </div>
   </div>
 </div>
@@ -25,7 +36,6 @@
     </div>
   </div>
 </div>
-
 
 <div id="email-error-message" class="hide">
   <%= i18n('emailErrorMessage') %>

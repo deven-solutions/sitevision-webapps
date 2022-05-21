@@ -1,87 +1,111 @@
-import * as React from 'react'
-import router from '@sitevision/api/common/router'
-import requester from '@sitevision/api/client/requester'
-import i18n from '@sitevision/api/common/i18n';
+import * as React from "react";
+import router from "@sitevision/api/common/router";
+import requester from "@sitevision/api/client/requester";
+import i18n from "@sitevision/api/common/i18n";
+import PropTypes from "prop-types";
 
-const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
+const UserItem = ({ userItem, updateUserItem, updateActiveTab }) => {
+  const form = React.useRef(null);
+  const [imageRequired, setImageRequired] = React.useState(false);
 
-  const form = React.useRef(null)
-  const [imageRequired, setImageRequired] = React.useState(false)
+  const isNewItem = () => userItem.dsid === undefined;
 
-  const isNewItem = () => userItem.dsid === undefined
-
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const data = {
-      url: router.getStandaloneUrl("/user-items" + (isNewItem() ? "" : "/" + userItem.dsid)),
+      url: router.getStandaloneUrl(
+        "/user-items" + (isNewItem() ? "" : "/" + userItem.dsid)
+      ),
+      // eslint-disable-next-line no-undef
       data: new FormData(form.current),
-      fileUpload: true
-    }
-    let promise
+      fileUpload: true,
+    };
+    let promise;
     if (isNewItem()) {
-      promise = requester.doPost(data)
+      promise = requester.doPost(data);
     } else {
-      promise = requester.doPut(data)
+      promise = requester.doPut(data);
     }
     promise.then((response) => {
       if (response.error) {
-        alert(response.error)
+        // eslint-disable-next-line no-undef
+        alert(response.error);
       } else {
         //form.current.reset()
-        updateUserItem({})
-        updateActiveTab(1)
+        updateUserItem({});
+        updateActiveTab(1);
       }
-    })
+    });
   };
 
   const handleCancel = () => {
-    updateUserItem({})
-    updateActiveTab(1)
+    updateUserItem({});
+    updateActiveTab(1);
   };
 
   React.useEffect(() => {
     if (isNewItem()) {
-      setImageRequired(true)
+      setImageRequired(true);
       requester
         .doGet({
           url: router.getStandaloneUrl("/contact-info"),
         })
         .then((contactInfo) => {
-          updateUserItem({name: contactInfo.name, phoneNumber: contactInfo.phoneNumber, email: contactInfo.email})
-        })
+          updateUserItem({
+            name: contactInfo.name,
+            phoneNumber: contactInfo.phoneNumber,
+            email: contactInfo.email,
+          });
+        });
     } else {
-      setImageRequired(false)
-      updateUserItem({...userItem, name: userItem.contactInfo.name, phoneNumber: userItem.contactInfo.phoneNumber, email: userItem.contactInfo.email})
+      setImageRequired(false);
+      updateUserItem({
+        ...userItem,
+        name: userItem.contactInfo.name,
+        phoneNumber: userItem.contactInfo.phoneNumber,
+        email: userItem.contactInfo.email,
+      });
     }
-  }, [])
+  }, []);
 
   return (
     <>
       <form
-        ref={form} onSubmit={handleSubmit}
+        ref={form}
+        onSubmit={handleSubmit}
         className="env-form env-w--50 env-p-left--large"
         encType="multipart/form-data"
       >
         <div className="env-form-element env-m-top--large">
-          <label htmlFor="file" className="env-form-element__label"
-            >{i18n.get('image')}
+          <label htmlFor="file" className="env-form-element__label">
+            {i18n.get("image")}
           </label>
           <div className="env-form-element__control">
-            <input id="file" type="file" name="file" accept="image/*" required={imageRequired}/>
+            <input
+              id="file"
+              type="file"
+              name="file"
+              accept="image/*"
+              required={imageRequired}
+            />
           </div>
         </div>
         <div className="env-form-element">
           <label htmlFor="title" className="env-form-element__label">
-            {i18n.get('title')}
+            {i18n.get("title")}
           </label>
           <div className="env-form-element__control">
             <input
               autoComplete="off"
               type="text"
               value={userItem.title}
-              onChange={(e) => updateUserItem({...userItem, title: e.target.value})}
+              onChange={(e) =>
+                updateUserItem({ ...userItem, title: e.target.value })
+              }
               className="env-form-input"
-              placeholder={i18n.get('enter') + ' ' + i18n.get('title').toLowerCase()}
+              placeholder={
+                i18n.get("enter") + " " + i18n.get("title").toLowerCase()
+              }
               name="title"
               id="title"
               required
@@ -91,14 +115,18 @@ const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
         <div className="env-form-element">
           <div className="env-form-element__control">
             <label htmlFor="description" className="env-form-element__label">
-              {i18n.get('description')}
+              {i18n.get("description")}
             </label>
             <input
               autoComplete="off"
               type="text"
               value={userItem.description}
-              onChange={(e) => updateUserItem({...userItem, description: e.target.value})}
-              placeholder={i18n.get('enter') + ' ' + i18n.get('description').toLowerCase()}
+              onChange={(e) =>
+                updateUserItem({ ...userItem, description: e.target.value })
+              }
+              placeholder={
+                i18n.get("enter") + " " + i18n.get("description").toLowerCase()
+              }
               className="env-form-input"
               name="description"
               id="description"
@@ -109,14 +137,18 @@ const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
         <div className="env-form-element">
           <div className="env-form-element__control">
             <label htmlFor="price" className="env-form-element__label">
-              {i18n.get('price')}
+              {i18n.get("price")}
             </label>
             <input
               autoComplete="off"
               type="number"
               value={userItem.price}
-              onChange={(e) => updateUserItem({...userItem, price: e.target.value})}
-              placeholder={i18n.get('enter') + ' ' + i18n.get('price').toLowerCase()}
+              onChange={(e) =>
+                updateUserItem({ ...userItem, price: e.target.value })
+              }
+              placeholder={
+                i18n.get("enter") + " " + i18n.get("price").toLowerCase()
+              }
               className="env-form-input"
               name="price"
               id="price"
@@ -127,14 +159,18 @@ const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
         <div className="env-form-element">
           <div className="env-form-element__control">
             <label htmlFor="name" className="env-form-element__label">
-              {i18n.get('name')}
+              {i18n.get("name")}
             </label>
             <input
               autoComplete="off"
               type="text"
               value={userItem.name}
-              onChange={(e) => updateUserItem({...userItem, name: e.target.value})}
-              placeholder={i18n.get('enter') + ' ' + i18n.get('name').toLowerCase()}
+              onChange={(e) =>
+                updateUserItem({ ...userItem, name: e.target.value })
+              }
+              placeholder={
+                i18n.get("enter") + " " + i18n.get("name").toLowerCase()
+              }
               className="env-form-input"
               name="name"
               id="name"
@@ -145,14 +181,18 @@ const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
         <div className="env-form-element">
           <div className="env-form-element__control">
             <label htmlFor="phoneNumber" className="env-form-element__label">
-              {i18n.get('phoneNumber')}
+              {i18n.get("phoneNumber")}
             </label>
             <input
               autoComplete="off"
               type="number"
               value={userItem.phoneNumber}
-              onChange={(e) => updateUserItem({...userItem, phoneNumber: e.target.value})}
-              placeholder={i18n.get('enter') + ' ' + i18n.get('phoneNumber').toLowerCase()}
+              onChange={(e) =>
+                updateUserItem({ ...userItem, phoneNumber: e.target.value })
+              }
+              placeholder={
+                i18n.get("enter") + " " + i18n.get("phoneNumber").toLowerCase()
+              }
               className="env-form-input"
               name="phoneNumber"
               id="phoneNumber"
@@ -163,14 +203,18 @@ const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
         <div className="env-form-element">
           <div className="env-form-element__control">
             <label htmlFor="email" className="env-form-element__label">
-              {i18n.get('email')}
+              {i18n.get("email")}
             </label>
             <input
               autoComplete="off"
               type="email"
               value={userItem.email}
-              onChange={(e) => updateUserItem({...userItem, email: e.target.value})}
-              placeholder={i18n.get('enter') + ' ' + i18n.get('email').toLowerCase()}
+              onChange={(e) =>
+                updateUserItem({ ...userItem, email: e.target.value })
+              }
+              placeholder={
+                i18n.get("enter") + " " + i18n.get("email").toLowerCase()
+              }
               className="env-form-input"
               name="email"
               id="email"
@@ -182,19 +226,25 @@ const CreateItem = ({userItem, updateUserItem, updateActiveTab}) => {
           <input
             className="env-button env-button--primary"
             type="submit"
-            value={i18n.get('save')}
+            value={i18n.get("save")}
           />
           <button
             type="button"
             className="env-button env-m-left--x-small"
             onClick={() => handleCancel()}
           >
-            {i18n.get('cancel')}
+            {i18n.get("cancel")}
           </button>
         </div>
       </form>
     </>
-  )
-}
+  );
+};
 
-export default CreateItem;
+UserItem.propTypes = {
+  userItem: PropTypes.object,
+  updateUserItem: PropTypes.func,
+  updateActiveTab: PropTypes.func
+};
+
+export default UserItem;

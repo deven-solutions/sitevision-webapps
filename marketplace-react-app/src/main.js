@@ -1,10 +1,7 @@
-import * as React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
+import * as React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
 
 export default (initialState, el) => {
-  ReactDOM.hydrate(
-    <App isLoggedIn={initialState.isLoggedIn}/>,
-    el
-  );
+  ReactDOM.hydrate(<App isLoggedIn={initialState.isLoggedIn} />, el);
 };

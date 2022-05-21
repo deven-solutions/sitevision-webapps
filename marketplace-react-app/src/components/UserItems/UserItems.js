@@ -3,6 +3,7 @@ import router from "@sitevision/api/common/router";
 import requester from "@sitevision/api/client/requester";
 import i18n from "@sitevision/api/common/i18n";
 import cloneDeep from "lodash/cloneDeep";
+import PropTypes from "prop-types";
 
 const UserItems = ({ updateUserItem, updateActiveTab }) => {
   const [items, setItems] = React.useState([]);
@@ -19,6 +20,7 @@ const UserItems = ({ updateUserItem, updateActiveTab }) => {
       })
       .then((response) => {
         if (response.error) {
+          // eslint-disable-next-line no-undef
           alert(response.error);
         } else {
           setItems(items.filter((item) => item.dsid !== dsid));
@@ -33,6 +35,7 @@ const UserItems = ({ updateUserItem, updateActiveTab }) => {
       })
       .then((response) => {
         if (response.error) {
+          // eslint-disable-next-line no-undef
           alert(response.error);
         } else {
           setItems([]);
@@ -117,6 +120,11 @@ const UserItems = ({ updateUserItem, updateActiveTab }) => {
       ) : null}
     </>
   );
+};
+
+UserItems.propTypes = {
+  updateUserItem: PropTypes.func,
+  updateActiveTab: PropTypes.func
 };
 
 export default UserItems;
